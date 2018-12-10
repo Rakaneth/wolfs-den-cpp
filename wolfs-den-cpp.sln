@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wolfs-den-cpp", "wolfs-den-cpp\wolfs-den-cpp.vcxproj", "{3F084652-5039-4DF1-A32F-46DA29B04B85}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Debug|x64.ActiveCfg = Debug|x64
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Debug|x64.Build.0 = Debug|x64
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Debug|x86.ActiveCfg = Debug|Win32
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Debug|x86.Build.0 = Debug|Win32
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Release|x64.ActiveCfg = Release|x64
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Release|x64.Build.0 = Release|x64
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Release|x86.ActiveCfg = Release|Win32
+		{3F084652-5039-4DF1-A32F-46DA29B04B85}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C934A62-4C39-480A-A735-D8E73A33716D}
+	EndGlobalSection
+EndGlobal
