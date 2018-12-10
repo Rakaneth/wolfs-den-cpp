@@ -9,6 +9,7 @@ public:
 	virtual void enter();
 	virtual void exit();
 	std::string getName() const;
+	static void border(TCODConsole& cons, std::string caption="");
 protected:
 	std::string _name;
 };

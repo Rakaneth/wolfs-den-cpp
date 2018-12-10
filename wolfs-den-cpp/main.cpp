@@ -9,14 +9,14 @@ int main() {
 	ScreenManager manager;
 	manager.registerScreen(new MainScreen());
 	manager.setScreen("main");
-
+	TCOD_key_t key;
+	
 	//main loop
 	while (!TCODConsole::isWindowClosed()) {
-		TCOD_key_t key;
-		TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL, false);
 		TCODConsole::root->clear();
-		manager.getCurScreen().handleKeys(key, key.shift);
 		manager.getCurScreen().render();
 		TCODConsole::flush();
+		TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL, false);
+		manager.getCurScreen().handleKeys(key, key.shift);
 	}
 }

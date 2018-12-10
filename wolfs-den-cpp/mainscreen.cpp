@@ -37,12 +37,11 @@ MainScreen::~MainScreen() {
 }
 
 void MainScreen::render() {
-	_map->printf(0, 0, "Map");
-	_msgs->printf(0, 0, "Messages");
-	_skls->printf(0, 0, "Skills");
-	_info->printf(0, 0, "Info");
-	_stats->printf(0, 0, "Stats");
-	
+	border(*_msgs, "Messages");
+	border(*_skls, "Skills");
+	border(*_info, "Info");
+	border(*_stats, "Stats");
+
 	TCODConsole::blit(_map, 0, 0, MAP_W, MAP_H, TCODConsole::root, 0, 0);
 	TCODConsole::blit(_msgs, 0, 0, _msgs->getWidth(), _msgs->getHeight(), TCODConsole::root, MSG_X, MSG_Y);
 	TCODConsole::blit(_info, 0, 0, _info->getWidth(), _info->getHeight(), TCODConsole::root, INFO_X, INFO_Y);
