@@ -42,6 +42,9 @@
     <ClCompile Include="stats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="managers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp">
@@ -72,6 +75,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stats.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="managers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaces.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

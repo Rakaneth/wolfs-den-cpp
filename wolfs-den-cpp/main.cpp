@@ -11,6 +11,17 @@ int main() {
 	world->addMap("mine", m);
 	world->curMapID = "mine";
 
+	/*test stats
+	auto dex = std::make_shared<Stat>("Dexterity", 5);
+	dex->addFinalBonus(TempStat("Dex Buff", 5, 5));
+	dex->addRawBonus(TempStat("Other Dex Buff", 2, 0, 0.2));
+	world->getUpkeepManager().add(dex);
+	for (int i = 0; i < 6; i++) {
+		std::cout << "Turn " << i << ": Dexterity is " << dex->getValue() << std::endl;
+		world->getUpkeepManager().process();
+	}
+	*/
+
 	//set up screens
 	ScreenManager manager;
 	manager.registerScreen(std::make_shared<MainScreen>(world));

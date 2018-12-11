@@ -11,7 +11,9 @@ public:
 	GameMap& getCurMap() { return getMap(curMapID); }
 	std::string curMapID;
 	Pos player; //TODO: entity
+	UpkeepManager& getUpkeepManager() const { return *_upkeep; }
 private:
 	std::map<std::string, GameMap> _maps;
 	std::unique_ptr<TCODRandom> _rng;
+	std::unique_ptr<UpkeepManager> _upkeep;
 };

@@ -1,15 +1,4 @@
 #pragma once
-
-class ILocatable {
-public:
-	virtual Pos& pos() = 0;
-};
-
-class IUpkeep {
-public:
-	virtual void tick() = 0;
-};
-
 class BaseStat {
 public:
 	BaseStat(std::string name, int flat = 0, double pct = 0.0)

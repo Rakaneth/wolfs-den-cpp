@@ -3,6 +3,9 @@
 void TempStat::tick() {
 	if (_duration > 0)
 		_duration--;
+
+	if (_duration == 0)
+		std::cout << _name << " has worn off." << std::endl;
 }
 
 void Stat::addRawBonus(TempStat bonus) {

@@ -14,6 +14,8 @@
 #include "include/libtcod.hpp"
 #include "tile.hpp"
 #include "gamemap.hpp"
+#include "interfaces.hpp";
+#include "managers.hpp"
 #include "world.hpp"
 #include "screen.hpp"
 #include "stats.hpp"
