@@ -6,14 +6,14 @@ int main() {
 	TCODConsole::initRoot(100, 40, "Wolf's Den 2");
 
 	//Set up world
-	World world(0xDEADBEEF);
+	auto world = std::make_shared<World>(0xDEADBEEF);
 	GameMap m(30, 30, "Mines", true);
-	world.addMap("mine", m);
-	world.curMapID = "mine";
+	world->addMap("mine", m);
+	world->curMapID = "mine";
 
 	//set up screens
 	ScreenManager manager;
-	manager.registerScreen(new MainScreen(world));
+	manager.registerScreen(std::make_shared<MainScreen>(world));
 	manager.setScreen("main");
 	TCOD_key_t key;
 	

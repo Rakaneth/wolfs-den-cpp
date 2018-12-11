@@ -2,7 +2,7 @@
 
 class Screen {
 public:
-	Screen(std::string name, World& world);
+	Screen(std::string name, std::shared_ptr<World> world);
 	virtual ~Screen();
 	virtual void render() = 0;
 	virtual void handleKeys(const TCOD_key_t& key, bool shift) = 0;
@@ -12,26 +12,23 @@ public:
 	static void border(TCODConsole& cons, std::string caption="");
 protected:
 	std::string _name;
-	World& _world;
+	std::shared_ptr<World> _world;
 };
 
 class MainScreen : public Screen {
 public:
-	MainScreen(World& world);
-	MainScreen(const MainScreen& oldScreen) = delete;
-	MainScreen& operator=(const MainScreen& screen) = delete;
-	~MainScreen();
+	MainScreen(std::shared_ptr<World> world);
 	void render();
 	void handleKeys(const TCOD_key_t& key, bool shift);
 private:
 	void drawMap();
 	void drawHUD();
 	Pos cam(const Pos& pos);
-	TCODConsole* _map;
-	TCODConsole* _msgs;
-	TCODConsole* _skls;
-	TCODConsole* _info;
-	TCODConsole* _stats;
+	std::unique_ptr<TCODConsole> _map;
+	std::unique_ptr<TCODConsole> _msgs;
+	std::unique_ptr<TCODConsole> _skls;
+	std::unique_ptr<TCODConsole> _info;
+	std::unique_ptr<TCODConsole> _stats;
 	bool _gameStarted;
 	//void startGame();
 };
@@ -39,11 +36,10 @@ private:
 class ScreenManager {
 public:
 	ScreenManager();
-	~ScreenManager();
-	void registerScreen(Screen* screens);
+	void registerScreen(std::shared_ptr<Screen> screen);
 	void setScreen(std::string screenID);
 	Screen& getCurScreen();
 private:
-	Screen* _curScreen;
-	std::map<std::string, Screen*> _screenMap;
+	std::shared_ptr<Screen> _curScreen;
+	std::map<std::string, std::shared_ptr<Screen>> _screenMap;
 };

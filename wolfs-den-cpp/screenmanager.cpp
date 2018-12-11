@@ -1,11 +1,9 @@
 #include "main.hpp"
 
 ScreenManager::ScreenManager() : _curScreen(nullptr) {}
-ScreenManager::~ScreenManager() {
-	delete _curScreen;
-}
-void ScreenManager::registerScreen(Screen* screen) {
-	_screenMap[screen->getName()] = screen;
+
+void ScreenManager::registerScreen(std::shared_ptr<Screen> screen) {
+	_screenMap.insert(std::make_pair(screen->getName(), screen));
 }
 
 void ScreenManager::setScreen(std::string screenID) {
