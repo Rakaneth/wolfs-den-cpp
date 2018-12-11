@@ -20,3 +20,5 @@
 #define STAT_Y 0
 #define STAT_W 40
 #define STAT_H 30
+#define MAP_MAX_W 100
+#define MAP_MAX_H 100

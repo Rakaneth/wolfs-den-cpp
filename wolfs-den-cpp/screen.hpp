@@ -2,7 +2,7 @@
 
 class Screen {
 public:
-	Screen(std::string name);
+	Screen(std::string name, World& world);
 	virtual ~Screen();
 	virtual void render() = 0;
 	virtual void handleKeys(const TCOD_key_t& key, bool shift) = 0;
@@ -12,22 +12,28 @@ public:
 	static void border(TCODConsole& cons, std::string caption="");
 protected:
 	std::string _name;
+	World& _world;
 };
 
 class MainScreen : public Screen {
 public:
-	MainScreen();
-	MainScreen(const MainScreen& oldScreen);
-	MainScreen& operator=(const MainScreen& screen);
+	MainScreen(World& world);
+	MainScreen(const MainScreen& oldScreen) = delete;
+	MainScreen& operator=(const MainScreen& screen) = delete;
 	~MainScreen();
 	void render();
 	void handleKeys(const TCOD_key_t& key, bool shift);
 private:
+	void drawMap();
+	void drawHUD();
+	Pos cam(const Pos& pos);
 	TCODConsole* _map;
 	TCODConsole* _msgs;
 	TCODConsole* _skls;
 	TCODConsole* _info;
 	TCODConsole* _stats;
+	bool _gameStarted;
+	//void startGame();
 };
 
 class ScreenManager {

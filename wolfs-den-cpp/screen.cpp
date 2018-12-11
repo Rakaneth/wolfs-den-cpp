@@ -1,6 +1,6 @@
 #include "main.hpp"
 
-Screen::Screen(std::string name): _name(name) {}
+Screen::Screen(std::string name, World& world): _name(name), _world(world) {}
 Screen::~Screen() {}
 std::string Screen::getName() const { return _name; }
 void Screen::enter() { std::cout << "Entered " << _name << " screen."; }
