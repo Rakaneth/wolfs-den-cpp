@@ -16,3 +16,5 @@
 #include "gamemap.hpp"
 #include "world.hpp"
 #include "screen.hpp"
+#include "stats.hpp"
+#include "entity.hpp"

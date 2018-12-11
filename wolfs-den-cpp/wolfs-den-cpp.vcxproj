@@ -137,15 +137,18 @@
     <ClCompile Include="pos.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="screenmanager.cpp" />
+    <ClCompile Include="stats.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.hpp" />
+    <ClInclude Include="entity.hpp" />
     <ClInclude Include="gamemap.hpp" />
     <ClInclude Include="main.hpp" />
     <ClInclude Include="pos.hpp" />
     <ClInclude Include="screen.hpp" />
+    <ClInclude Include="stats.hpp" />
     <ClInclude Include="tile.hpp" />
     <ClInclude Include="utils.hpp" />
     <ClInclude Include="world.hpp" />
