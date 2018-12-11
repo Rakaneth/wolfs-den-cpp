@@ -15,7 +15,7 @@ protected:
 class TempStat : public BaseStat, public IUpkeep {
 public:
 	static const int INFINITE;
-	TempStat(std::string name, int duration = INFINITE, int flat = 0, double pct = 0.0)
+	TempStat(std::string name, int flat = 0, double pct = 0.0, int duration = INFINITE)
 		: BaseStat(name, flat, pct), _duration(duration) {}
 	bool hasExpired() { return _duration == 0; }
 	void tick();

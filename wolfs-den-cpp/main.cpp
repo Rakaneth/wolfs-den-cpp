@@ -11,7 +11,8 @@ int main() {
 	world->addMap("mine", m);
 	world->curMapID = "mine";
 
-	/*test stats
+	/*
+	//test stats
 	auto dex = std::make_shared<Stat>("Dexterity", 5);
 	dex->addFinalBonus(TempStat("Dex Buff", 5, 5));
 	dex->addRawBonus(TempStat("Other Dex Buff", 2, 0, 0.2));

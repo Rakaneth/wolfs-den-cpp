@@ -1,5 +1,7 @@
 #include "main.hpp"
 
+const int TempStat::INFINITE = -1;
+
 void TempStat::tick() {
 	if (_duration > 0)
 		_duration--;
