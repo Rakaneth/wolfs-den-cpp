@@ -23,6 +23,15 @@ int main() {
 	}
 	*/
 
+	
+	/*
+	//test name generator
+	TCODNamegen::parse("data/names/dwarf.dat", TCODRandom::getInstance());
+	for (int n = 0; n < 10; n++)
+		std::cout << TCODNamegen::generate((char*)"dwarf_male") << std::endl;
+	TCODNamegen::destroy();
+	*/
+	
 	//set up screens
 	ScreenManager manager;
 	manager.registerScreen(std::make_shared<MainScreen>(world));

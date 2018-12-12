@@ -1,0 +1,13 @@
+name "dwarf_male" {
+	syllablesStart="An, Bael, Grin, Jer, Rik, Thrak"
+	syllablesMiddle="dall, in, ir, kas, ulf"
+	syllablesEnd="Adain, Blazeforge, Darkblade, Grindstone, Stoneforge"
+	rules="$s$m_$e"
+}
+
+name "dwarf_female" {
+	syllablesStart="An, Bael, Grin, Jer, Rik, Thrak"
+	syllablesMiddle="dala, yna, yra, kasya, ylfa"
+	syllablesEnd="Adain, Blazeforge, Darkblade, Grindstone, Stoneforge"
+	rules="$s$m_$e"
+}
