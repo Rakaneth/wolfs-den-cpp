@@ -24,13 +24,18 @@ int main() {
 	*/
 
 	
+	
 	/*
 	//test name generator
-	TCODNamegen::parse("data/names/dwarf.dat", TCODRandom::getInstance());
+	TCODNamegen::parse("data/names/dwarf.dat", &world->getRNG());
+	std::cout << "Male Dwarf names: " << std::endl;
 	for (int n = 0; n < 10; n++)
 		std::cout << TCODNamegen::generate((char*)"dwarf_male") << std::endl;
-	TCODNamegen::destroy();
+	std::cout << "Female Dwarf names:" << std::endl;
+	for (int f = 0; f < 10; f++)
+		std::cout << TCODNamegen::generate((char*)"dwarf_female") << std::endl;
 	*/
+	
 	
 	//set up screens
 	ScreenManager manager;
