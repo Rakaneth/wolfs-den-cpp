@@ -35,12 +35,12 @@ int main() {
   */
 
   // test parser
-  Factory factory;
-  factory.init();
+  //Factory factory;
+  //factory.init();
   //factory.debugPrintCreatures();
   //factory.debugPrintEquip();
   //factory.debugPrintItems();
-  factory.debugPrintMaterials();
+  //factory.debugPrintMaterials();
 
   // set up screens
   ScreenManager manager;

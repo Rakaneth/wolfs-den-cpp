@@ -83,7 +83,7 @@ material "bone" {
 
 material "blackiron" {
 	name="blackiron"
-	color="95,0,191"
+	col="95,0,191"
 	hardness=40
 	stats "sword" {
 		atp=5

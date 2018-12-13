@@ -87,10 +87,18 @@ void Factory::initMaterials() { TCODParser parser;
 }
 
 void Factory::init() {
+  std::cout << "Loading creatures...";
   initCreatures();
+  std::cout << getCreatureCount() << " creature templates loaded." << std::endl;
+  std::cout << "Loading equipment...";
   initEquip();
+  std::cout << getEquipCount() << " equipment templates loaded." << std::endl;
+  std::cout << "Loading items...";
   initItems();
+  std::cout << getItemCount() << " item templates loaded." << std::endl;
+  std::cout << "Loading materials...";
   initMaterials();
+  std::cout << getMatCount() << " material types loaded." << std::endl;
 }
 
 void Factory::debugPrintCreatures() {
