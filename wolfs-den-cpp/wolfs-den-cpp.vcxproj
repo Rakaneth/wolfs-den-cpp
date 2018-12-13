@@ -131,10 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="factory.cpp" />
     <ClCompile Include="gamemap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainscreen.cpp" />
     <ClCompile Include="managers.cpp" />
+    <ClCompile Include="parsers.cpp" />
     <ClCompile Include="pos.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="screenmanager.cpp" />
@@ -145,9 +148,11 @@
   <ItemGroup>
     <ClInclude Include="constants.hpp" />
     <ClInclude Include="entity.hpp" />
+    <ClInclude Include="factory.hpp" />
     <ClInclude Include="gamemap.hpp" />
     <ClInclude Include="interfaces.hpp" />
     <ClInclude Include="main.hpp" />
+    <ClInclude Include="parsers.hpp" />
     <ClInclude Include="pos.hpp" />
     <ClInclude Include="screen.hpp" />
     <ClInclude Include="stats.hpp" />

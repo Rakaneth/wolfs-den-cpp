@@ -1,0 +1,10 @@
+---
+Language: Cpp
+ColumnLimit: 100
+AlignAfterOpenBracket: Align
+NamespaceIndentation: All
+PointerAlignment: Left
+UseTab: Never
+BreakBeforeBraces: Attach
+AllowShortFunctionsOnASingleLine: true
+TabWidth: 2

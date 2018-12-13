@@ -2,7 +2,7 @@
 
 class ILocatable {
 public:
-	virtual Pos& pos() = 0;
+	virtual Pos pos() = 0;
 };
 
 class IUpkeep {

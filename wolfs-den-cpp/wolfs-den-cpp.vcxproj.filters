@@ -45,6 +45,15 @@
     <ClCompile Include="managers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="factory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp">
@@ -83,10 +92,14 @@
     <ClInclude Include="interfaces.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="factory.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data\names\dwarf.dat">
-      <Filter>Resource Files</Filter>
-    </None>
+    <None Include="data\**" />
   </ItemGroup>
 </Project>
