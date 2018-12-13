@@ -17,8 +17,8 @@ bool CreatureParser::parserNewStruct(TCODParser* parser, const TCODParserStruct*
     foetus.spd = 10;
     foetus.id = name;
     foetus.unarmed = "hands";
+    foetus.tags.clear();
   }
-
   return true;
 }
 
@@ -50,6 +50,11 @@ bool CreatureParser::parserProperty(TCODParser* parser, const char* propname,
     foetus.smt = value.i;
   else if (strcmp(propname, "color") == 0)
     foetus.color = value.col;
+  else if (strcmp(propname, "tags") == 0) {
+    for (char** it = (char**)TCOD_list_begin(value.list); it != (char**)TCOD_list_end(value.list);
+         it++)
+      foetus.tags.push_back(*it);
+  }
 
   return true;
 }

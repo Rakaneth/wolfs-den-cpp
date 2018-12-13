@@ -37,8 +37,7 @@ int main() {
   // test parser
   Factory factory;
   factory.init();
-  std::cout << "Creature template list has " << factory.getCreatureCount() << " entries"
-            << std::endl;
+  factory.debugPrintCreatures();
 
   // set up screens
   ScreenManager manager;

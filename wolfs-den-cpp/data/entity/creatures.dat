@@ -1,7 +1,7 @@
 creature "wolf" {
 	name="wolf"
 	type="wolf"
-	desc="A large, grey wolf"
+	desc="A large, grey wolf."
 	unarmed="fangs"
 	glyph='W'
 	col="63,50,31"
@@ -10,4 +10,19 @@ creature "wolf" {
 		str=15
 		vision=10
 	}
+	tags=["animal", "wolf"]
+}
+
+creature "zombie" {
+	name="zombie"
+	type="undead"
+	desc="Once a man, now a shambling zombie."
+	unarmed="hands"
+	glyph='U'
+	stats {
+		str=20
+		skl=5
+		vision=4
+	}
+	tags=["undead"]
 }

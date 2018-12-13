@@ -4,6 +4,7 @@ class Factory {
 public:
   void init();
   int getCreatureCount() const { return _creatureTemplates.size(); }
+  void debugPrintCreatures();
 
 private:
   friend class CreatureParser;

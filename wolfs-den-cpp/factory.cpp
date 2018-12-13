@@ -22,6 +22,7 @@ void Factory::initCreatures() {
   creature->addProperty("glyph", TCOD_TYPE_CHAR, true);
   creature->addProperty("col", TCOD_TYPE_COLOR, false);
   creature->addProperty("unarmed", TCOD_TYPE_STRING, false);
+  creature->addListProperty("tags", TCOD_TYPE_STRING, true);
   creatureParser.run("data/entity/creatures.dat", new CreatureParser());
 }
 
@@ -33,4 +34,23 @@ void Factory::init() {
   initCreatures();
   initEquip();
   initItems();
+}
+
+void Factory::debugPrintCreatures() {
+  std::cout << "Creature template list has " << getCreatureCount() << " entries"
+            << std::endl;
+  for (auto& creature : _creatureTemplates) {
+    std::cout << "---" << std::endl;
+    std::cout << "ID: " << creature.id << std::endl;
+    std::cout << "Name: " << creature.name << std::endl;
+    std::cout << "Desc: " << creature.desc << std::endl;
+    std::cout << "Glyph: " << creature.glyph << std::endl;
+    std::cout << "Stats: ";
+    std::cout << creature.str << " " << creature.stam << " " << creature.spd << " " << creature.skl
+              << " " << creature.sag << " " << creature.smt << std::endl;
+    std::cout << "Tags: ";
+    for (auto& tag : creature.tags)
+      std::cout << tag << ", ";
+    std::cout << std::endl;
+  }
 }

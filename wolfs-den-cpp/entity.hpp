@@ -69,6 +69,7 @@ struct BaseTemplate {
   char glyph;
   TCODColor color;
   int frequency;
+  std::vector<std::string> tags;
 };
 
 struct CreatureTemplate : public BaseTemplate {
@@ -83,5 +84,5 @@ struct EquipTemplate : public BaseTemplate {
 
 struct ItemTemplate : public BaseTemplate {
   std::string type;
-  float amt;
+  double amt;
 };

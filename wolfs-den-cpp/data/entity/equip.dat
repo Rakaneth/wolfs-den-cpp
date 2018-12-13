@@ -1,0 +1,6 @@
+equip "whiteMark" {
+	name="Mark of Ilma"
+	desc="A holy symbol of Il'ma'to'ee'rey"
+	slot="trinket"
+	glyph=0x3D
+}
