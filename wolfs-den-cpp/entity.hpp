@@ -78,11 +78,24 @@ struct CreatureTemplate : public BaseTemplate {
 };
 
 struct EquipTemplate : public BaseTemplate {
-  std::string slot;
+  std::string slot, equipType, damageType;
   int atp, dfp, dmg, res, tou, wil, pwr, vision;
+  bool material;
 };
 
 struct ItemTemplate : public BaseTemplate {
   std::string type;
+  bool flat;
   double amt;
+};
+
+struct MatStatSet {
+  int atp=0, dfp=0, dmg=0, res=0, tou=0, wil=0, pwr=0;
+};
+
+struct Material {
+  std::string name;
+  int hardness;
+  MatStatSet axe, sword, staff, rapier, hammer, armor;
+  TCODColor color;
 };

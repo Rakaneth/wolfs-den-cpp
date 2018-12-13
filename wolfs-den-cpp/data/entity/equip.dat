@@ -41,11 +41,11 @@ equip "greenMark" {
 	slot="trinket"
 	glyph=0x3D
 	stats {
-		atk=5
+		atp=5
 		pwr=5
 	}
 	tags=["holy", "dragon"]
-	color="0,191,0"
+	col="0,191,0"
 }
 
 equip "blueMark" {
@@ -58,7 +58,7 @@ equip "blueMark" {
 		pwr=5
 	}
 	tags=["holy", "dragon"]
-	color="0,127,255"
+	col="0,127,255"
 }
 
 equip "axe" {
@@ -146,7 +146,7 @@ equip "claws" {
 	}
 	damageType="slash"
 	equipType="natural"
-	tags={"weapon"]
+	tags=["weapon"]
 }
 
 equip "fangs" {
