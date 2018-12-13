@@ -1,6 +1,7 @@
 #include "main.hpp"
 
-bool CreatureParser::parserNewStruct(TCODParser* parser, const TCODParserStruct* str,
+bool CreatureParser::parserNewStruct(TCODParser* parser,
+                                     const TCODParserStruct* str,
                                      const char* name) {
   if (strcmp(str->getName(), "creature") == 0) {
     foetus.color = TCODColor::white;
@@ -22,10 +23,13 @@ bool CreatureParser::parserNewStruct(TCODParser* parser, const TCODParserStruct*
   return true;
 }
 
-bool CreatureParser::parserFlag(TCODParser* parser, const char* name) { return true; }
+bool CreatureParser::parserFlag(TCODParser* parser, const char* name) {
+  return true;
+}
 
 bool CreatureParser::parserProperty(TCODParser* parser, const char* propname,
-                                    TCOD_value_type_t type, TCOD_value_t value) {
+                                    TCOD_value_type_t type,
+                                    TCOD_value_t value) {
   if (strcmp(propname, "name") == 0)
     foetus.name = value.s;
   else if (strcmp(propname, "type") == 0)
@@ -51,15 +55,16 @@ bool CreatureParser::parserProperty(TCODParser* parser, const char* propname,
   else if (strcmp(propname, "color") == 0)
     foetus.color = value.col;
   else if (strcmp(propname, "tags") == 0) {
-    for (char** it = (char**)TCOD_list_begin(value.list); it != (char**)TCOD_list_end(value.list);
-         it++)
+    for (char** it = (char**)TCOD_list_begin(value.list);
+         it != (char**)TCOD_list_end(value.list); it++)
       foetus.tags.push_back(*it);
   }
 
   return true;
 }
 
-bool CreatureParser::parserEndStruct(TCODParser* parser, const TCODParserStruct* str,
+bool CreatureParser::parserEndStruct(TCODParser* parser,
+                                     const TCODParserStruct* str,
                                      const char* name) {
   if (strcmp(str->getName(), "creature") == 0)
     Factory::_creatureTemplates.push_back(foetus);
@@ -71,38 +76,46 @@ void CreatureParser::error(const char* msg) {
   std::cout << "Error parsing creature file: " << msg << std::endl;
 }
 
-bool ItemParser::parserNewStruct(TCODParser* parser, const TCODParserStruct* str,
+bool ItemParser::parserNewStruct(TCODParser* parser,
+                                 const TCODParserStruct* str,
                                  const char* name) {
   return false;
 }
 
-bool ItemParser::parserFlag(TCODParser* parser, const char* name) { return false; }
-
-bool ItemParser::parserProperty(TCODParser* parser, const char* propname, TCOD_value_type_t type,
-                                TCOD_value_t value) {
+bool ItemParser::parserFlag(TCODParser* parser, const char* name) {
   return false;
 }
 
-bool ItemParser::parserEndStruct(TCODParser* parser, const TCODParserStruct* str,
+bool ItemParser::parserProperty(TCODParser* parser, const char* propname,
+                                TCOD_value_type_t type, TCOD_value_t value) {
+  return false;
+}
+
+bool ItemParser::parserEndStruct(TCODParser* parser,
+                                 const TCODParserStruct* str,
                                  const char* name) {
   return false;
 }
 
 void ItemParser::error(const char* msg) {}
 
-bool EquipParser::parserNewStruct(TCODParser* parser, const TCODParserStruct* str,
+bool EquipParser::parserNewStruct(TCODParser* parser,
+                                  const TCODParserStruct* str,
                                   const char* name) {
   return false;
 }
 
-bool EquipParser::parserFlag(TCODParser* parser, const char* name) { return false; }
-
-bool EquipParser::parserProperty(TCODParser* parser, const char* propname, TCOD_value_type_t type,
-                                 TCOD_value_t value) {
+bool EquipParser::parserFlag(TCODParser* parser, const char* name) {
   return false;
 }
 
-bool EquipParser::parserEndStruct(TCODParser* parser, const TCODParserStruct* str,
+bool EquipParser::parserProperty(TCODParser* parser, const char* propname,
+                                 TCOD_value_type_t type, TCOD_value_t value) {
+  return false;
+}
+
+bool EquipParser::parserEndStruct(TCODParser* parser,
+                                  const TCODParserStruct* str,
                                   const char* name) {
   return false;
 }

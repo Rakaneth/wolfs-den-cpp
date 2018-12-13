@@ -37,8 +37,7 @@ void Factory::init() {
 }
 
 void Factory::debugPrintCreatures() {
-  std::cout << "Creature template list has " << getCreatureCount() << " entries"
-            << std::endl;
+  std::cout << "Creature template list has " << getCreatureCount() << " entries" << std::endl;
   for (auto& creature : _creatureTemplates) {
     std::cout << "---" << std::endl;
     std::cout << "ID: " << creature.id << std::endl;
