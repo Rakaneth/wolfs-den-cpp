@@ -22,6 +22,8 @@ bool Entity::hasTag(std::string tag) {
   return false;
 }
 
+Pos Entity::pos() { return Pos{_x, _y}; }
+
 GameMap& Entity::getMap() {
   auto tmp = _world.lock();
   return tmp->getMap(mapID);

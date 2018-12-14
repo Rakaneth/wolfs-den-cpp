@@ -14,6 +14,7 @@ public:
   int getWil() const { return _wil; }
   int getPwr() const { return _pwr; }
   int getVision() const { return _vision; }
+  void debugPrint();
 
 private:
   void applyMaterial(const MatStatSet& set);

@@ -173,6 +173,16 @@ void Factory::debugPrintItems() {
   }
 }
 
+Equipment Factory::makeEquip(const std::shared_ptr<World>& world, const std::string& eqID, const std::string& matID) {
+  EquipTemplate temp;
+  Material mat = _materials[matID];
+  for (auto& t : _equipTemplates)
+    if (t.id == eqID)
+      temp = t;
+  
+  return Equipment(world, temp, &mat);
+}
+
 void Factory::debugPrintMaterials() {
   std::cout << "Materials map has " << getMatCount() << " entries" << std::endl;
   for (auto& pair : _materials) {

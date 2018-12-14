@@ -65,6 +65,20 @@ Equipment::Equipment(const std::shared_ptr<World>& world,
 
 bool Equipment::use(Creature& user, const Creature* target) { return false; }
 
+void Equipment::debugPrint() {
+  std::cout << "---Equipment: " << name << "(" <<  _id << ")---" << std::endl;
+  std::cout << "Desc: " << desc << std::endl;
+  std::cout << "Stats:" << std::endl;
+  std::cout << "Atp " << _atp;
+  std::cout << " Dfp " << _dfp;
+  std::cout << " Dmg " << _dmg;
+  std::cout << " Tou " << _tou;
+  std::cout << " Res " << _res;
+  std::cout << " Wil " << _wil;
+  std::cout << " Pwr " << _pwr;
+  std::cout << " Vision " << _vision << std::endl;
+}
+
 void Equipment::applyMaterial(const MatStatSet& set) {
   _atp += set.atp;
   _dfp += set.dfp;

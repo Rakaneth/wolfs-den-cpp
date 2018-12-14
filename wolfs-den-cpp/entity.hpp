@@ -17,7 +17,7 @@ public:
   virtual void tick() {}
   GameMap& getMap();
   int ID() const { return _id; }
-  Pos pos() const { return Pos{_x, _y}; }
+  
   void move(int x, int y);
   void move(const Pos& pos) { move(pos.x, pos.y); }
   void addTag(std::string tag) { _tags.push_back(tag); }
@@ -30,6 +30,9 @@ protected:
   int _id;
   std::vector<std::string> _tags;
   std::weak_ptr<World> _world;
+
+  // Inherited via ILocatable
+  virtual Pos pos() override;
 };
 
 class Item : public Entity {

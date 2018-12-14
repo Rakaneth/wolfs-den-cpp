@@ -17,8 +17,8 @@ int main() {
   dex->addRawBonus(TempStat("Other Dex Buff", 2, 0, 0.2));
   world->getUpkeepManager().add(dex);
   for (int i = 0; i < 6; i++) {
-    std::cout << "Turn " << i << ": Dexterity is " << dex->getValue() << std::endl;
-    world->getUpkeepManager().process();
+    std::cout << "Turn " << i << ": Dexterity is " << dex->getValue() <<
+  std::endl; world->getUpkeepManager().process();
   }
   */
 
@@ -42,6 +42,10 @@ int main() {
   factory.debugPrintItems();
   factory.debugPrintMaterials();
   */
+
+  //test equipment
+  auto axe = world->getFactory().makeEquip(world, "axe", "blackiron");
+  axe.debugPrint();
 
   // set up screens
   ScreenManager manager;
