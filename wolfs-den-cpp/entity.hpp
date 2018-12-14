@@ -1,8 +1,8 @@
 #pragma once
 
-enum ItemType { HEALING = 0, FOOD, EQUIP };
+enum ItemType { IT_HEALING = 0, IT_FOOD, IT_EQUIP };
 
-enum EquipSlot { ARMOR = 0, TRINKET, WEAPON };
+enum EquipSlot { ES_ARMOR = 0, ES_TRINKET, ES_WEAPON };
 class Creature;
 
 class Entity : public ILocatable, public IUpkeep {

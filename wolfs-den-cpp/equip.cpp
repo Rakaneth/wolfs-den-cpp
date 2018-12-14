@@ -1,8 +1,10 @@
 #include "main.hpp"
 
+
+
 Equipment::Equipment(const std::shared_ptr<World>& world,
                      const EquipTemplate& eqTemp, const Material* mat)
-  : Item(world, EQUIP),
+  : Item(world, IT_EQUIP),
     _atp(eqTemp.atp),
     _dfp(eqTemp.dfp),
     _dmg(eqTemp.dmg),
@@ -12,17 +14,40 @@ Equipment::Equipment(const std::shared_ptr<World>& world,
     _pwr(eqTemp.pwr),
     _vision(eqTemp.vision) {
   if (eqTemp.slot == "weapon")
-    _slot = WEAPON;
+    _slot = ES_WEAPON;
   else if (eqTemp.slot == "armor")
-    _slot = ARMOR;
+    _slot = ES_ARMOR;
   else if (eqTemp.slot == "trinket")
-    _slot = TRINKET;
+    _slot = ES_TRINKET;
   else {
     std::cout << "Bad slot for " << eqTemp.name << "; check data files."
               << std::endl;
     exit(1);
   }
   glyph = eqTemp.glyph;
+  if (eqTemp.damageType == "slash")
+    _damageType = DT_SLASH;
+  else if (eqTemp.damageType == "pierce")
+    _damageType = DT_PIERCE;
+  else if (eqTemp.damageType == "blunt")
+    _damageType = DT_BLUNT;
+  else
+    _damageType = DT_SLASH;
+
+  if (eqTemp.equipType == "axe")
+    _eqType = ET_AXE;
+  else if (eqTemp.equipType == "sword")
+    _eqType = ET_SWORD;
+  else if (eqTemp.equipType == "staff")
+    _eqType = ET_STAFF;
+  else if (eqTemp.equipType == "hammer")
+    _eqType = ET_HAMMER;
+  else if (eqTemp.equipType == "rapier")
+    _eqType = ET_RAPIER;
+  else if (eqTemp.equipType == "armor")
+    _eqType = ET_ARMOR;
+  else
+    _eqType = ET_NONE;
 
   if (eqTemp.material) {
     if (mat == nullptr) {
@@ -32,7 +57,7 @@ Equipment::Equipment(const std::shared_ptr<World>& world,
       std::string lookFor("<material>");
       std::string matName(mat->name);
       std::string eqDesc(eqTemp.desc);
-      
+
       desc = eqDesc.replace(eqDesc.find(lookFor), lookFor.size(), matName);
       name = matName + " " + eqTemp.name;
       if (eqTemp.equipType == "axe")
@@ -45,7 +70,7 @@ Equipment::Equipment(const std::shared_ptr<World>& world,
         applyMaterial(mat->hammer);
       else if (eqTemp.equipType == "rapier")
         applyMaterial(mat->rapier);
-      else if (eqTemp.equipType == "armor") 
+      else if (eqTemp.equipType == "armor")
         applyMaterial(mat->armor);
       else {
         std::cout << "Invalid equipment type: " << eqTemp.equipType
@@ -66,7 +91,7 @@ Equipment::Equipment(const std::shared_ptr<World>& world,
 bool Equipment::use(Creature& user, const Creature* target) { return false; }
 
 void Equipment::debugPrint() {
-  std::cout << "---Equipment: " << name << "(" <<  _id << ")---" << std::endl;
+  std::cout << "---Equipment: " << name << "(" << _id << ")---" << std::endl;
   std::cout << "Desc: " << desc << std::endl;
   std::cout << "Stats:" << std::endl;
   std::cout << "Atp " << _atp;
