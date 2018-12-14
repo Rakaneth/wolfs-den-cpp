@@ -97,7 +97,7 @@ equip "staff" {
 	name="staff"
 	desc="A long staff made from <material>."
 	slot="weapon"
-	glyph=0xF4
+	glyph='_'
 	material
 	stats {
 		pwr=5

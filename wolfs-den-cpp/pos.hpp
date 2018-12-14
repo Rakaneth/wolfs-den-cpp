@@ -1,7 +1,7 @@
 #pragma once
 
 struct Pos {
-	int x, y;
+  int x, y;
 };
 
 int distance(const Pos& a, const Pos& b);

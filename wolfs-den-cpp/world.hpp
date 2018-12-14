@@ -5,21 +5,27 @@ class World {
 public:
   World(uint32_t seed);
   World();
-  TCODRandom getRNG() const { return *_rng; }
+  TCODRandom& getRNG() const { return *_rng; }
+  std::shared_ptr<TCODRandom>& getRNGPtr() { return _rng; }
   GameMap& getMap(std::string mapID) { return *_maps[mapID]; }
   void addMap(std::string mapID, GameMap* map);
   // void changeMap(std::string mapID);
-  GameMap& getCurMap() { return getMap(curMapID); }
-  std::string curMapID;
+  GameMap& getCurMap() { return getMap(_curMapID); }
   Pos player; // TODO: entity
   UpkeepManager& getUpkeepManager() const { return *_upkeep; }
   Factory& getFactory() const { return *_factory; }
   int getTurn() const { return _turn; }
+  int addEntity(std::shared_ptr<Entity> ent);
+  void removeEntity(int entID);
+  void changeMap(std::string newMapID);
+  std::vector<Entity> curThings();
 
 private:
+  std::string _curMapID;
   std::map<std::string, std::unique_ptr<GameMap>> _maps;
-  std::unique_ptr<TCODRandom> _rng;
+  std::shared_ptr<TCODRandom> _rng;
   std::unique_ptr<UpkeepManager> _upkeep;
   std::unique_ptr<Factory> _factory;
+  std::map<int, std::shared_ptr<Entity>> _things;
   int _turn;
 };

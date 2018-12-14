@@ -2,10 +2,12 @@
 
 class ILocatable {
 public:
-	virtual Pos pos() = 0;
+  virtual Pos pos() = 0;
 };
 
 class IUpkeep {
 public:
-	virtual void tick() = 0;
+  IUpkeep() : upkeep(true) {}
+  bool upkeep;
+  virtual void tick() = 0;
 };

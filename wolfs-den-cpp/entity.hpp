@@ -7,7 +7,7 @@ class Creature;
 
 class Entity : public ILocatable, public IUpkeep {
 public:
-  Entity(const std::shared_ptr<World>& world);
+  Entity(const std::shared_ptr<World>& world, int layer);
   Entity() = default;
   std::string name;
   std::string desc;
@@ -17,22 +17,25 @@ public:
   virtual void tick() {}
   GameMap& getMap();
   int ID() const { return _id; }
+  int getLayer() const { return _layer; }
   
   void move(int x, int y);
   void move(const Pos& pos) { move(pos.x, pos.y); }
   void addTag(std::string tag) { _tags.push_back(tag); }
   void removeTag(std::string tag);
   bool hasTag(std::string tag);
+  virtual Pos pos() override;
 
 protected:
   static int _counter;
   int _x, _y;
   int _id;
+  int _layer;
   std::vector<std::string> _tags;
   std::weak_ptr<World> _world;
 
   // Inherited via ILocatable
-  virtual Pos pos() override;
+  
 };
 
 class Item : public Entity {

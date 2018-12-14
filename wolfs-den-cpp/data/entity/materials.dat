@@ -9,6 +9,7 @@ material "oak" {
 		dmg=1
 	}
 	frequency=3
+  col="158,134,100"
 }
 
 material "iron" {

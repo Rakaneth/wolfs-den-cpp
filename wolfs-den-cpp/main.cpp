@@ -3,13 +3,17 @@
 
 int main() {
   // Init libtcod
+  TCODConsole::setCustomFont("terminal12x12_gs_ro.png",
+                             TCOD_FONT_LAYOUT_ASCII_INROW |
+                                 TCOD_FONT_TYPE_GREYSCALE);
   TCODConsole::initRoot(100, 40, "Wolf's Den 2");
 
   // Set up world
   auto world = std::make_shared<World>(0xDEADBEEF);
-  world->addMap("mine", new GameMap(30, 30, "Mines", true));
-  world->curMapID = "mine";
-  world->player = Pos{2, 5};
+  world->addMap("mine",
+                GameMap::makeCaves(85, 85, "Mines", world->getRNGPtr()));
+  world->changeMap("mine");
+  world->player = Pos{37, 48};
   /*
   //test stats
   auto dex = std::make_shared<Stat>("Dexterity", 5);
@@ -43,9 +47,11 @@ int main() {
   factory.debugPrintMaterials();
   */
 
-  //test equipment
-  auto axe = world->getFactory().makeEquip(world, "axe", "blackiron");
-  axe.debugPrint();
+  // test equipment
+  auto axe = world->getFactory().makeEquip(world, "staff", "oak");
+  axe->mapID = "mine";
+  axe->move(37, 48);
+  world->addEntity(axe);
 
   // set up screens
   ScreenManager manager;
@@ -55,7 +61,6 @@ int main() {
 
   // main loop
   while (!TCODConsole::isWindowClosed()) {
-    TCODConsole::root->clear();
     manager.getCurScreen().render();
     TCODConsole::flush();
     TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL, false);

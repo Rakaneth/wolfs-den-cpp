@@ -173,14 +173,14 @@ void Factory::debugPrintItems() {
   }
 }
 
-Equipment Factory::makeEquip(const std::shared_ptr<World>& world, const std::string& eqID, const std::string& matID) {
+std::shared_ptr<Equipment> Factory::makeEquip(const std::shared_ptr<World>& world, const std::string& eqID, const std::string& matID) {
   EquipTemplate temp;
   Material mat = _materials[matID];
   for (auto& t : _equipTemplates)
     if (t.id == eqID)
       temp = t;
   
-  return Equipment(world, temp, &mat);
+  return std::make_shared<Equipment>(world, temp, &mat);
 }
 
 void Factory::debugPrintMaterials() {

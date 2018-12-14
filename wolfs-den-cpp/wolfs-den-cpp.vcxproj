@@ -76,10 +76,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Quincy\Source\Repos\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Quincy\Documents\c++\libtcod-1.10.2-x86_64-msvc;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libtcod.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -89,10 +89,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Quincy\Source\Repos\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Quincy\Documents\c++\libtcod-1.10.2-x86_64-msvc;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libtcod.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -104,12 +104,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Quincy\Source\Repos\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Quincy\Documents\c++\libtcod-1.10.2-x86_64-msvc;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libtcod.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -121,12 +121,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Quincy\Source\Repos\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Quincy\Documents\c++\libtcod-1.10.2-x86_64-msvc;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libtcod.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -169,6 +169,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="data\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libtcod.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SDL2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="terminal12x12_gs_ro.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

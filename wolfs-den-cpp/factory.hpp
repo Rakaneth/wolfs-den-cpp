@@ -10,7 +10,7 @@ public:
   void debugPrintCreatures();
   void debugPrintEquip();
   void debugPrintItems();
-  Equipment makeEquip(const std::shared_ptr<World>& world, const std::string& eqID, const std::string& matID);
+  std::shared_ptr<Equipment> makeEquip(const std::shared_ptr<World>& world, const std::string& eqID, const std::string& matID);
   Material& getMaterial(std::string matID) const {
     return _materials.at(matID);
   }
