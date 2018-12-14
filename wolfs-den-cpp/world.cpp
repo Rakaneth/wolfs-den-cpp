@@ -15,3 +15,9 @@ World::World()
     _turn(0) {
   _factory->init();
 }
+
+void World::addMap(std::string mapID, GameMap* map) {
+  std::unique_ptr<GameMap> temp(map);
+  _maps.insert({mapID, std::move(temp)});
+}
+

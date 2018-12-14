@@ -7,10 +7,9 @@ int main() {
 
   // Set up world
   auto world = std::make_shared<World>(0xDEADBEEF);
-  GameMap m(30, 30, "Mines", true);
-  world->addMap("mine", m);
+  world->addMap("mine", new GameMap(30, 30, "Mines", true));
   world->curMapID = "mine";
-
+  world->player = Pos{2, 5};
   /*
   //test stats
   auto dex = std::make_shared<Stat>("Dexterity", 5);
@@ -34,13 +33,15 @@ int main() {
     std::cout << TCODNamegen::generate((char*)"dwarf_female") << std::endl;
   */
 
-  // test parser
-  //Factory factory;
-  //factory.init();
-  //factory.debugPrintCreatures();
-  //factory.debugPrintEquip();
-  //factory.debugPrintItems();
-  //factory.debugPrintMaterials();
+  /*
+  //test parser
+  Factory factory;
+  factory.init();
+  factory.debugPrintCreatures();
+  factory.debugPrintEquip();
+  factory.debugPrintItems();
+  factory.debugPrintMaterials();
+  */
 
   // set up screens
   ScreenManager manager;

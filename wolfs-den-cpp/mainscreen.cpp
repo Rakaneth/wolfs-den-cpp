@@ -37,10 +37,11 @@ void MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
 }
 
 void MainScreen::drawMap() {
-	auto m = _world->getCurMap();
-	for (int x = 0; x < m.getWidth(); x++) {
-		for (int y = 0; y < m.getHeight(); y++) {
-			Tile t = m.getTile(x, y);
+  int w = _world->getCurMap().getWidth();
+  int h = _world->getCurMap().getHeight();
+	for (int x = 0; x < w; x++) {
+		for (int y = 0; y < h; y++) {
+			Tile t = _world->getCurMap().getTile(x, y);
 			if (t.glyph != 0) {
 				TCODColor color = (t.color == nullptr) ? TCODColor::white : *t.color;
 				_map->putCharEx(x, y, t.glyph, color, TCODColor::black);
@@ -54,8 +55,9 @@ void MainScreen::drawHUD() {
 }
 
 Pos MainScreen::cam(const Pos& pos) {
-	auto m = _world->getCurMap();
-	int left = clamp(pos.x - m.getWidth(), 0, (int)fmax(0, m.getWidth() - MAP_W));
-	int top = clamp(pos.y - m.getHeight(), 0, (int)fmax(0, m.getHeight() - MAP_H));
+  int mw = _world->getCurMap().getWidth();
+  int mh = _world->getCurMap().getHeight();
+	int left = clamp(pos.x - mw, 0, (int)fmax(0, mw - MAP_W));
+	int top = clamp(pos.y - mh, 0, (int)fmax(0, mh - MAP_H));
 	return Pos{ left, top };
 }

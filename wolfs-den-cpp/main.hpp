@@ -20,5 +20,7 @@
 #include "screen.hpp"
 #include "stats.hpp"
 #include "entity.hpp"
+#include "equip.hpp"
+#include "creature.hpp"
 #include "parsers.hpp"
 #include "factory.hpp"

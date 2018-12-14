@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="equip.cpp" />
     <ClCompile Include="factory.cpp" />
     <ClCompile Include="gamemap.cpp" />
     <ClCompile Include="main.cpp" />
@@ -147,7 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.hpp" />
+    <ClInclude Include="creature.hpp" />
     <ClInclude Include="entity.hpp" />
+    <ClInclude Include="equip.hpp" />
     <ClInclude Include="factory.hpp" />
     <ClInclude Include="gamemap.hpp" />
     <ClInclude Include="interfaces.hpp" />

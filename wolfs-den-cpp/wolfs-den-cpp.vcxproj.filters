@@ -54,6 +54,9 @@
     <ClCompile Include="parsers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="equip.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp">
@@ -98,8 +101,16 @@
     <ClInclude Include="parsers.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="equip.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="creature.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\**" />
+    <None Include="data\**" />
     <None Include="data\**" />
   </ItemGroup>
 </Project>

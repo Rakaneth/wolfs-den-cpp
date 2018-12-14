@@ -1,0 +1,77 @@
+#include "main.hpp"
+
+Equipment::Equipment(const std::shared_ptr<World>& world,
+                     const EquipTemplate& eqTemp, const Material* mat)
+  : Item(world, EQUIP),
+    _atp(eqTemp.atp),
+    _dfp(eqTemp.dfp),
+    _dmg(eqTemp.dmg),
+    _res(eqTemp.res),
+    _tou(eqTemp.tou),
+    _wil(eqTemp.wil),
+    _pwr(eqTemp.pwr),
+    _vision(eqTemp.vision) {
+  if (eqTemp.slot == "weapon")
+    _slot = WEAPON;
+  else if (eqTemp.slot == "armor")
+    _slot = ARMOR;
+  else if (eqTemp.slot == "trinket")
+    _slot = TRINKET;
+  else {
+    std::cout << "Bad slot for " << eqTemp.name << "; check data files."
+              << std::endl;
+    exit(1);
+  }
+  glyph = eqTemp.glyph;
+
+  if (eqTemp.material) {
+    if (mat == nullptr) {
+      std::cout << eqTemp.name << " must be made of a material." << std::endl;
+      exit(1);
+    } else {
+      std::string lookFor("<material>");
+      std::string matName(mat->name);
+      std::string eqDesc(eqTemp.desc);
+      
+      desc = eqDesc.replace(eqDesc.find(lookFor), lookFor.size(), matName);
+      name = matName + " " + eqTemp.name;
+      if (eqTemp.equipType == "axe")
+        applyMaterial(mat->axe);
+      else if (eqTemp.equipType == "sword")
+        applyMaterial(mat->sword);
+      else if (eqTemp.equipType == "staff")
+        applyMaterial(mat->staff);
+      else if (eqTemp.equipType == "hammer")
+        applyMaterial(mat->hammer);
+      else if (eqTemp.equipType == "rapier")
+        applyMaterial(mat->rapier);
+      else if (eqTemp.equipType == "armor") 
+        applyMaterial(mat->armor);
+      else {
+        std::cout << "Invalid equipment type: " << eqTemp.equipType
+                  << std::endl;
+        exit(1);
+      }
+      color = mat->color;
+      _hardness = mat->hardness;
+    }
+  } else {
+    color = eqTemp.color;
+    name = eqTemp.name;
+    desc = eqTemp.desc;
+    _hardness = 5;
+  }
+}
+
+bool Equipment::use(Creature& user, const Creature* target) { return false; }
+
+void Equipment::applyMaterial(const MatStatSet& set) {
+  _atp += set.atp;
+  _dfp += set.dfp;
+  _dmg += set.dmg;
+  _tou += set.tou;
+  _res += set.res;
+  _wil += set.wil;
+  _pwr += set.pwr;
+  _vision += set.vision;
+}

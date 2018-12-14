@@ -3,10 +3,11 @@
 enum ItemType { HEALING = 0, FOOD, EQUIP };
 
 enum EquipSlot { ARMOR = 0, TRINKET, WEAPON };
+class Creature;
 
 class Entity : public ILocatable, public IUpkeep {
 public:
-  Entity(std::shared_ptr<World> world);
+  Entity(const std::shared_ptr<World>& world);
   Entity() = default;
   std::string name;
   std::string desc;
@@ -33,35 +34,14 @@ protected:
 
 class Item : public Entity {
 public:
-  Item(std::shared_ptr<World> world, ItemType type, int uses = INFINITE);
-  virtual void use() = 0;
+  Item(const std::shared_ptr<World>& world, ItemType type, int uses = INFINITE);
+  virtual bool use(Creature& user, const Creature* target = nullptr) = 0;
   static const int INFINITE;
   ItemType getItemType() const { return _type; }
 
 private:
   int _uses;
   ItemType _type;
-};
-
-class Equipment : public Item {
-public:
-  Equipment(std::shared_ptr<World> world);
-  void use();
-  int getAtp() const { return _atp; }
-  int getDfp() const { return _dfp; }
-  int getDmg() const { return _dmg; }
-  int getTou() const { return _tou; }
-  int getRes() const { return _res; }
-  int getWil() const { return _wil; }
-  int getPwr() const { return _pwr; }
-
-private:
-  EquipSlot _slot;
-  int _atp, _dfp, _dmg, _tou, _res, _wil, _pwr;
-};
-
-class Creature : public Entity {
-public:
 };
 
 struct BaseTemplate {
@@ -90,7 +70,7 @@ struct ItemTemplate : public BaseTemplate {
 };
 
 struct MatStatSet {
-  int atp=0, dfp=0, dmg=0, res=0, tou=0, wil=0, pwr=0;
+  int atp = 0, dfp = 0, dmg = 0, res = 0, tou = 0, wil = 0, pwr = 0, vision = 0;
 };
 
 struct Material {
