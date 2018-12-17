@@ -177,7 +177,7 @@
     <Content Include="SDL2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="terminal12x12_gs_ro.png">
+    <Content Include="*.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

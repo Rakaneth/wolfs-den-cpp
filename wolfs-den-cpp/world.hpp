@@ -11,7 +11,8 @@ public:
   void addMap(std::string mapID, GameMap* map);
   // void changeMap(std::string mapID);
   GameMap& getCurMap() { return getMap(_curMapID); }
-  Pos player; // TODO: entity
+  Creature& getPlayer() { return getByID<Creature>(_playerID); }
+  void setPlayer(int eID) { _playerID = eID; }
   UpkeepManager& getUpkeepManager() const { return *_upkeep; }
   Factory& getFactory() const { return *_factory; }
   int getTurn() const { return _turn; }
@@ -19,6 +20,7 @@ public:
   void removeEntity(int entID);
   void changeMap(std::string newMapID);
   std::vector<Entity> curThings();
+  template <class T> T& getByID(int eID) { return (T)*_things[eID]; }
 
 private:
   std::string _curMapID;
@@ -27,5 +29,5 @@ private:
   std::unique_ptr<UpkeepManager> _upkeep;
   std::unique_ptr<Factory> _factory;
   std::map<int, std::shared_ptr<Entity>> _things;
-  int _turn;
+  int _turn, _playerID;
 };

@@ -26,7 +26,7 @@ private:
   void drawMap();
   void drawHUD();
   void draw(const ILocatable& obj);
-  Pos cam(const Pos& pos);
+  Pos cam(ILocatable& obj);
   std::unique_ptr<TCODConsole> _map;
   std::unique_ptr<TCODConsole> _msgs;
   std::unique_ptr<TCODConsole> _skls;

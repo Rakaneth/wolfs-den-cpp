@@ -10,3 +10,4 @@ AllowShortFunctionsOnASingleLine: true
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 ConstructorInitializerIndentWidth: 2
 TabWidth: 2
+AlwaysBreakTemplateDeclarations: true

@@ -99,7 +99,8 @@ void MainScreen::drawHUD() {
   _stats->printf(1, 1, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Cam at (%d, %d)", c.x, c.y);
 }
 
-Pos MainScreen::cam(const Pos& pos) {
+Pos MainScreen::cam(ILocatable& obj) {
+  Pos pos = obj.pos();
   int mw = _world->getCurMap().getWidth();
   int mh = _world->getCurMap().getHeight();
   int left = clamp(pos.x - MAP_W/2, 0, std::max(0, mw - MAP_W));

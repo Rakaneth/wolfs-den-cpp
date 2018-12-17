@@ -4,8 +4,7 @@
 int main() {
   // Init libtcod
   TCODConsole::setCustomFont("terminal12x12_gs_ro.png",
-                             TCOD_FONT_LAYOUT_ASCII_INROW |
-                                 TCOD_FONT_TYPE_GREYSCALE);
+                             TCOD_FONT_LAYOUT_ASCII_INROW | TCOD_FONT_TYPE_GREYSCALE);
   TCODConsole::initRoot(100, 40, "Wolf's Den 2");
 
   // Set up world
