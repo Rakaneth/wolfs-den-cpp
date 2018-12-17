@@ -28,7 +28,13 @@ void GameMap::setTile(int x, int y, int tileIdx) {
   _tiles[x + y * _width] = tileIdx;
   Tile t = getTile(x, y);
   _fovMap->setProperties(x, y, t.see, t.walk);
+  Pos changedTile = Pos(x, y);
+  if (t.walk)
+    _floors.push_back(changedTile);
+  else
+    listRemove(_floors, changedTile);
   dirty = true;
+
 }
 
 bool GameMap::isExplored(int x, int y) const {
@@ -83,4 +89,9 @@ GameMap* GameMap::makeCaves(int width, int height, std::string name,
   auto map = new GameMap(width, height, name, rng, isLight);
   map->randomTiles().wallWrap();
   return map;
+}
+
+Pos GameMap::randomFloor() {
+  auto roll = _rng.lock()->getInt(0, _floors.size());
+  return _floors[roll];
 }

@@ -18,7 +18,7 @@ void MainScreen::render() {
   drawMap();
   drawHUD();
 
-  auto c = cam(_world->player);
+  auto c = cam(_world->getPlayer());
 
   TCODConsole::blit(_map.get(), c.x, c.y, MAP_W, MAP_H, TCODConsole::root, 0,
                     0);
@@ -32,25 +32,16 @@ void MainScreen::render() {
                     TCODConsole::root, STAT_X, STAT_Y);
 }
 
-void MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
-  int xmax = _world->getCurMap().getWidth() - 1;
-  int ymax = _world->getCurMap().getHeight() - 1;
+Command* MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
   switch (key.vk) { 
   case TCODK_UP:
-    _world->player.y = std::max(0, _world->player.y - 1);
-    _world->getCurMap().dirty = true;
-    break;
+    return new MoveByCommand(0, -1);
   case TCODK_DOWN:
-    _world->player.y = std::min(ymax, _world->player.y + 1);
-    _world->getCurMap().dirty = true;
-    break;
+    return new MoveByCommand(0, 1);
   case TCODK_LEFT:
-    _world->player.x = std::max(0, _world->player.x - 1);
-    _world->getCurMap().dirty = true;
-    break;
+    return new MoveByCommand(-1, 0);
   case TCODK_RIGHT:
-    _world->player.x = std::min(xmax, _world->player.x + 1);
-    _world->getCurMap().dirty = true;
+    return new MoveByCommand(1, 0);
     break;
   default:
     std::cout << "Key " << key.text << " was pressed";
@@ -58,7 +49,7 @@ void MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
       std::cout << " and shift was down." << std::endl;
     else
       std::cout << "." << std::endl;
-    break;
+    return new WaitCommand();
   }
 }
 
@@ -67,10 +58,10 @@ bool sortByLayer(const Entity& fst, const Entity& snd) {
 }
 
 void MainScreen::drawMap() {
-  _map->clear();
-  int w = _world->getCurMap().getWidth();
-  int h = _world->getCurMap().getHeight();
   if (_world->getCurMap().dirty) {
+    _map->clear();
+    int w = _world->getCurMap().getWidth();
+    int h = _world->getCurMap().getHeight();
     for (int x = 0; x < w; x++) {
       for (int y = 0; y < h; y++) {
         Tile t = _world->getCurMap().getTile(x, y);
@@ -86,16 +77,15 @@ void MainScreen::drawMap() {
       _map->putCharEx(thing.pos().x, thing.pos().y, thing.glyph, thing.color,
                       TCODColor::black);
     }
-    _map->putCharEx(_world->player.x, _world->player.y, 'X', TCODColor::yellow,
-                    TCODColor::black);
     _world->getCurMap().dirty = false;
   }
 }
 
 void MainScreen::drawHUD() {
   _stats->clear();
-  auto c = cam(_world->player);
-  _stats->printf(1, 0, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at (%d, %d)", _world->player.x, _world->player.y);
+  auto c = cam(_world->getPlayer());
+  Pos playerPos = _world->getPlayer().pos();
+  _stats->printf(1, 0, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at (%d, %d)", playerPos.x, playerPos.y);
   _stats->printf(1, 1, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Cam at (%d, %d)", c.x, c.y);
 }
 

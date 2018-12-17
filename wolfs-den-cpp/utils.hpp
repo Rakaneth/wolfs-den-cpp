@@ -23,3 +23,10 @@ inline bool contains(std::vector<T> list, T thing) {
 
   return false;
 }
+
+template<typename T> 
+inline void listRemove(std::vector<T> list, T val) {
+  auto it = std::remove(list.begin(), list.end(), val);
+  if (it != list.end())
+    list.erase(it);
+}

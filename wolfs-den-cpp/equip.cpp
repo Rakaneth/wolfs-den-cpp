@@ -4,7 +4,7 @@
 
 Equipment::Equipment(const std::shared_ptr<World>& world,
                      const EquipTemplate& eqTemp, const Material* mat)
-  : Item(world, IT_EQUIP),
+  : Item(world, IT_EQUIP, eqTemp.name, eqTemp.desc, eqTemp.glyph),
     _atp(eqTemp.atp),
     _dfp(eqTemp.dfp),
     _dmg(eqTemp.dmg),
@@ -25,6 +25,7 @@ Equipment::Equipment(const std::shared_ptr<World>& world,
     exit(1);
   }
   glyph = eqTemp.glyph;
+  _tags = eqTemp.tags;
   if (eqTemp.damageType == "slash")
     _damageType = DT_SLASH;
   else if (eqTemp.damageType == "pierce")
@@ -88,7 +89,13 @@ Equipment::Equipment(const std::shared_ptr<World>& world,
   }
 }
 
-bool Equipment::use(Creature& user, const Creature* target) { return false; }
+bool Equipment::use(Creature& user, const Creature* target) { 
+  if (equipped)
+    user.dequip(*this);
+  else
+    user.equip(*this);
+  return true; 
+}
 
 void Equipment::debugPrint() {
   std::cout << "---Equipment: " << name << "(" << _id << ")---" << std::endl;

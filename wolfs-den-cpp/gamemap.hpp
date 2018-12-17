@@ -23,6 +23,11 @@ public:
   static GameMap* makeCaves(int width, int height, std::string name,
                             std::shared_ptr<TCODRandom>& rng,
                             bool isLight = true);
+  bool canWalk(int x, int y) { return getTile(x, y).walk; }
+  bool canWalk(Pos p) { return canWalk(p.x, p.y); }
+  bool canSee(int x, int y) { return getTile(x, y).see; }
+  bool canSee(Pos p) { return canSee(p.x, p.y); }
+  Pos randomFloor();
 
 private:
   GameMap& allWalls();
@@ -31,6 +36,7 @@ private:
   GameMap& randomTiles(double chance = 0.5);
   std::vector<int> _tiles;
   std::vector<bool> _explored;
+  PosList _floors;
   std::string _name;
   int _width;
   int _height;

@@ -29,6 +29,7 @@ public:
   DamageType getDamageType() { return _damageType; }
   EquipSlot getSlot() { return _slot; }
   void debugPrint();
+  bool equipped = false;
 
 private:
   void applyMaterial(const MatStatSet& set);

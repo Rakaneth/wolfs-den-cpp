@@ -131,6 +131,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="commands.cpp" />
+    <ClCompile Include="creature.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="equip.cpp" />
     <ClCompile Include="factory.cpp" />
@@ -147,6 +149,7 @@
     <ClCompile Include="world.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="commands.hpp" />
     <ClInclude Include="constants.hpp" />
     <ClInclude Include="creature.hpp" />
     <ClInclude Include="entity.hpp" />

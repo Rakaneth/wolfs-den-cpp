@@ -24,3 +24,4 @@
 #include "creature.hpp"
 #include "parsers.hpp"
 #include "factory.hpp"
+#include "commands.hpp"

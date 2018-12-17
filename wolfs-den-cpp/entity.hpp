@@ -7,7 +7,7 @@ class Creature;
 
 class Entity : public ILocatable, public IUpkeep {
 public:
-  Entity(const std::shared_ptr<World>& world, int layer);
+  Entity(const std::shared_ptr<World>& world, int layer, std::string name="No name", std::string desc = "No desc", char glyph=0);
   Entity() = default;
   std::string name;
   std::string desc;
@@ -32,15 +32,13 @@ protected:
   int _id;
   int _layer;
   std::vector<std::string> _tags;
-  std::weak_ptr<World> _world;
-
-  // Inherited via ILocatable
-  
+  std::weak_ptr<World> _world;  
 };
 
 class Item : public Entity {
 public:
-  Item(const std::shared_ptr<World>& world, ItemType type, int uses = INFINITE);
+  Item(const std::shared_ptr<World>& world, ItemType type, std::string name = "No name",
+       std::string desc="No desc", char glyph = 0, int uses = INFINITE );
   virtual bool use(Creature& user, const Creature* target = nullptr) = 0;
   static const int INFINITE;
   ItemType getItemType() const { return _type; }

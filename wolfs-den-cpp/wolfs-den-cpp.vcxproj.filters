@@ -57,6 +57,12 @@
     <ClCompile Include="equip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="creature.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="commands.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp">
@@ -107,8 +113,15 @@
     <ClInclude Include="creature.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="commands.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\**" />
+    <None Include="data\**" />
+    <None Include="data\**" />
+    <None Include="data\**" />
     <None Include="data\**" />
     <None Include="data\**" />
     <None Include="data\**" />

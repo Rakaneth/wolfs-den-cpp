@@ -52,7 +52,7 @@ bool CreatureParser::parserProperty(TCODParser* parser, const char* propname,
     foetus.sag = value.i;
   else if (strcmp(propname, "smt") == 0)
     foetus.smt = value.i;
-  else if (strcmp(propname, "color") == 0)
+  else if (strcmp(propname, "col") == 0)
     foetus.color = value.col;
   else if (strcmp(propname, "tags") == 0) {
     for (char** it = (char**)TCOD_list_begin(value.list);

@@ -1,5 +1,6 @@
 #pragma once
 class Factory;
+class Creature;
 
 class World {
 public:
@@ -9,10 +10,9 @@ public:
   std::shared_ptr<TCODRandom>& getRNGPtr() { return _rng; }
   GameMap& getMap(std::string mapID) { return *_maps[mapID]; }
   void addMap(std::string mapID, GameMap* map);
-  // void changeMap(std::string mapID);
   GameMap& getCurMap() { return getMap(_curMapID); }
-  Creature& getPlayer() { return getByID<Creature>(_playerID); }
-  void setPlayer(int eID) { _playerID = eID; }
+  Creature& getPlayer() { return *getByID<Creature>(_playerID); }
+  void setPlayer(int eID);
   UpkeepManager& getUpkeepManager() const { return *_upkeep; }
   Factory& getFactory() const { return *_factory; }
   int getTurn() const { return _turn; }
@@ -20,7 +20,10 @@ public:
   void removeEntity(int entID);
   void changeMap(std::string newMapID);
   std::vector<Entity> curThings();
-  template <class T> T& getByID(int eID) { return (T)*_things[eID]; }
+  template <class T>
+  std::shared_ptr<T> getByID(int eID) {
+    return std::dynamic_pointer_cast<T>(_things[eID]);
+  }
 
 private:
   std::string _curMapID;

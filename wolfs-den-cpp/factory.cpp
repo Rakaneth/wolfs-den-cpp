@@ -68,7 +68,8 @@ void Factory::initItems() {
   parser.run("data/entity/items.dat", new ItemParser());
 }
 
-void Factory::initMaterials() { TCODParser parser;
+void Factory::initMaterials() {
+  TCODParser parser;
   auto mat = parser.newStructure("material");
   auto stats = parser.newStructure("stats");
   mat->addStructure(stats);
@@ -145,11 +146,11 @@ void Factory::debugPrintEquip() {
     std::cout << " Vision " << equip.vision << std::endl;
     if (equip.material)
       std::cout << "This item must be made of a material." << std::endl;
-    
+
     std::cout << "Tags: ";
     for (auto& tag : equip.tags)
       std::cout << tag << ", ";
-    
+
     std::cout << std::endl;
   }
 }
@@ -173,14 +174,29 @@ void Factory::debugPrintItems() {
   }
 }
 
-std::shared_ptr<Equipment> Factory::makeEquip(const std::shared_ptr<World>& world, const std::string& eqID, const std::string& matID) {
+int Factory::makeEquip(const std::shared_ptr<World>& world, const std::string& eqID,
+                   const std::string& matID) {
   EquipTemplate temp;
-  Material mat = _materials[matID];
+  Material* pMat = (matID == "none" ? nullptr : pMat = &_materials[matID]);
+
   for (auto& t : _equipTemplates)
     if (t.id == eqID)
       temp = t;
-  
-  return std::make_shared<Equipment>(world, temp, &mat);
+
+  auto pEQ = std::make_shared<Equipment>(world, temp, pMat);
+  world->addEntity(pEQ);
+  return pEQ->ID();
+}
+
+int Factory::makeCreature(const std::shared_ptr<World>& world,
+                      const std::string& crID) {
+  CreatureTemplate temp;
+  for (auto& t : _creatureTemplates)
+    if (t.id == crID)
+      temp = t;
+  auto pCR = std::make_shared<Creature>(world, temp);
+  world->addEntity(pCR);
+  return pCR->ID();
 }
 
 void Factory::debugPrintMaterials() {

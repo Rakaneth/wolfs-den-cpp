@@ -43,3 +43,8 @@ std::vector<Entity> World::curThings() {
       results.push_back(*pair.second);
   return results;
 }
+
+void World::setPlayer(int eID) { 
+  _playerID = eID;
+  getPlayer().isPlayer = true;
+}

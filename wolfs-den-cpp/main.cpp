@@ -12,7 +12,7 @@ int main() {
   world->addMap("mine",
                 GameMap::makeCaves(85, 85, "Mines", world->getRNGPtr()));
   world->changeMap("mine");
-  world->player = Pos{37, 48};
+  
   /*
   //test stats
   auto dex = std::make_shared<Stat>("Dexterity", 5);
@@ -47,22 +47,26 @@ int main() {
   */
 
   // test equipment
-  auto axe = world->getFactory().makeEquip(world, "staff", "oak");
-  axe->mapID = "mine";
-  axe->move(37, 48);
-  world->addEntity(axe);
+  int staffID = world->getFactory().makeEquip(world, "staff", "oak");
+  auto staff = world->getByID<Equipment>(staffID);
+  staff->mapID = "mine";
+  world->setPlayer(world->getFactory().makeCreature(world, "wolf"));
+  world->getPlayer().mapID = "mine";
+  world->getPlayer().move(world->getCurMap().randomFloor());
 
   // set up screens
   ScreenManager manager;
   manager.registerScreen(std::make_shared<MainScreen>(world));
   manager.setScreen("main");
   TCOD_key_t key;
+  Command* playerCmd;
 
   // main loop
   while (!TCODConsole::isWindowClosed()) {
     manager.getCurScreen().render();
     TCODConsole::flush();
     TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL, false);
-    manager.getCurScreen().handleKeys(key, key.shift);
+    playerCmd = manager.getCurScreen().handleKeys(key, key.shift);
+    playerCmd->execute(world->getPlayer());
   }
 }

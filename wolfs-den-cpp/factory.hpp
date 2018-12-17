@@ -10,12 +10,15 @@ public:
   void debugPrintCreatures();
   void debugPrintEquip();
   void debugPrintItems();
-  std::shared_ptr<Equipment> makeEquip(const std::shared_ptr<World>& world, const std::string& eqID, const std::string& matID);
+  int makeEquip(const std::shared_ptr<World>& world,
+                                       const std::string& eqID,
+                                       const std::string& matID = "none");
+  int makeCreature(const std::shared_ptr<World>& world,
+                                         const std::string& crID);
   Material& getMaterial(std::string matID) const {
     return _materials.at(matID);
   }
   void debugPrintMaterials();
-  
 
 private:
   friend class CreatureParser;
