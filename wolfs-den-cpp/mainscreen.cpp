@@ -35,15 +35,31 @@ void MainScreen::render() {
 std::unique_ptr<Command> MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
   Command* pCmd;
   switch (key.vk) {
+  case TCODK_KP8:
   case TCODK_UP:
     pCmd =  new MoveByCommand(0, -1);
     break;
+  case TCODK_KP9:
+    pCmd = new MoveByCommand(1, -1);
+    break;
+  case TCODK_KP2:
   case TCODK_DOWN:
     pCmd = new MoveByCommand(0, 1);
     break;
+  case TCODK_KP3:
+    pCmd = new MoveByCommand(1, 1);
+    break;
+  case TCODK_KP4:
   case TCODK_LEFT:
     pCmd = new MoveByCommand(-1, 0);
     break;
+  case TCODK_KP1:
+    pCmd = new MoveByCommand(-1, 1);
+    break;
+  case TCODK_KP7:
+    pCmd = new MoveByCommand(-1, -1);
+    break;
+  case TCODK_KP6:
   case TCODK_RIGHT:
     pCmd =  new MoveByCommand(1, 0);
     break;

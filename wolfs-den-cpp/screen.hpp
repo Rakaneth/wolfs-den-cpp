@@ -10,9 +10,9 @@ public:
   virtual void enter();
   virtual void exit();
   std::string getName() const;
-  static void border(TCODConsole& cons, std::string caption = "");
-
+  
 protected:
+  void border(TCODConsole& cons, std::string caption = "");
   std::string _name;
   std::shared_ptr<World> _world;
 };

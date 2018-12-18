@@ -41,6 +41,8 @@ private:
   GameMap& wallWrap();
   GameMap& randomTiles(double chance = 0.5);
   GameMap& caveIterations(int times);
+  std::vector<PosList> findRegions();
+  PosList flood(Pos p);
   std::vector<int> _tiles;
   std::vector<bool> _explored;
   PosList _floors;
@@ -49,4 +51,5 @@ private:
   int _height;
   std::unique_ptr<TCODMap> _fovMap;
   std::weak_ptr<TCODRandom> _rng;
+  PosList _allPositions;
 };

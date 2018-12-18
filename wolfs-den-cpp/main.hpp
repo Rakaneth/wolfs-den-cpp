@@ -7,6 +7,7 @@
 #include <cmath>
 #include <iterator>
 #include <algorithm>
+#include <queue>
 #include "include/libtcod.hpp"
 
 #include "constants.hpp"

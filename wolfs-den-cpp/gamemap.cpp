@@ -12,7 +12,11 @@ GameMap::GameMap(int width, int height, std::string name,
     _fovMap(new TCODMap(width, height)),
     _rng(rng),
     wallBG(wallBG),
-    floorBG(floorBG) {}
+    floorBG(floorBG) {
+  for (int x = 0; x < _width; x++)
+    for (int y = 0; y < _height; y++)
+      _allPositions.emplace_back(x, y);
+}
 
 bool GameMap::inBounds(int x, int y) const {
   return between(x, 0, _width - 1) && between(y, 0, _height - 1);
@@ -46,6 +50,7 @@ bool GameMap::isExplored(int x, int y) const {
 void GameMap::explore(int x, int y) { _explored[x + y * _width] = true; }
 
 GameMap& GameMap::allWalls() {
+  std::cout << "Making all walls for " << _name << std::endl;
   for (int x = 0; x < _width; x++)
     for (int y = 0; y < _height; y++)
       setTile(x, y, SET_WALL);
@@ -53,6 +58,7 @@ GameMap& GameMap::allWalls() {
 }
 
 GameMap& GameMap::allFloors() {
+  std::cout << "Making all floors for " << _name << std::endl;
   for (int x = 0; x < _width; x++)
     for (int y = 0; y < _height; y++)
       setTile(x, y, SET_FLOOR);
@@ -60,6 +66,7 @@ GameMap& GameMap::allFloors() {
 }
 
 GameMap& GameMap::randomTiles(double chance) {
+  std::cout << "Generating random tiles in " << _name << std::endl;
   double roll;
   for (int x = 0; x < _width; x++) {
     for (int y = 0; y < _height; y++) {
@@ -74,6 +81,7 @@ GameMap& GameMap::randomTiles(double chance) {
 }
 
 GameMap& GameMap::wallWrap() {
+  std::cout << "Wall wrapping " << _name << std::endl;
   for (int x = 0; x < _width; x++) {
     setTile(x, 0, SET_WALL);
     setTile(x, _height - 1, SET_WALL);
@@ -89,6 +97,8 @@ GameMap& GameMap::wallWrap() {
 GameMap& GameMap::caveIterations(int times) {
   PosList toWall, toFloor, neis;
   for (int i = 0; i < times; i++) {
+    std::cout << "Smoothing caves in " << _name << "; iteration " << i + 1
+                                    << std::endl;
     toWall.clear();
     toFloor.clear();
     for (int x = 0; x < _width; x++) {
@@ -114,9 +124,16 @@ GameMap& GameMap::caveIterations(int times) {
 
 GameMap* GameMap::makeCaves(int width, int height, std::string name,
                             std::shared_ptr<TCODRandom>& rng, bool isLight) {
+  const int MIN_REGION_SIZE = 20;
   auto map = new GameMap(width, height, name, rng, TCODColor::darkestSepia,
                          TCODColor::darkerSepia, isLight);
   map->randomTiles().caveIterations(4).wallWrap();
+  auto regions = map->findRegions();
+  for (auto& region : regions)
+    if (region.size() < MIN_REGION_SIZE)
+      for (auto& tile : region)
+        map->setTile(tile, SET_WALL);
+  
   return map;
 }
 
@@ -138,6 +155,46 @@ PosList GameMap::neighbors(int x, int y, bool skipWalls) {
       self = (xs == x && ys == y);
       if (!(wall || self))
         results.push_back(Pos(xs, ys));
+    }
+  }
+  return results;
+}
+
+std::vector<PosList> GameMap::findRegions() {
+  std::cout << "Finding regions in " << _name << std::endl;
+  std::vector<PosList> regions;
+  Pos curPos{0, 0};
+  for (int x = 0; x < _width; x++) {
+    for (int y = 0; y < _height; y++) {
+      if (canWalk(x, y)) {
+        curPos = Pos{x, y};
+        for (auto& region : regions) {
+          if (contains(region, curPos))
+            continue;
+        }
+        regions.push_back(flood(curPos));
+      }
+    }
+  }
+  return regions;
+}
+
+PosList GameMap::flood(Pos p) {
+  std::cout << "Flooding " << p << std::endl;
+  std::queue<Pos> q;
+  PosList results;
+  Pos current = p;
+  q.push(p);
+  while (!q.empty()) {
+    current = q.front();
+    q.pop();
+    for (auto& nei : neighbors(current)) {
+      if (contains(results, nei))
+        continue;
+      else {
+        q.push(nei);
+        results.push_back(nei);
+      }
     }
   }
   return results;
