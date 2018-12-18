@@ -32,16 +32,20 @@ void MainScreen::render() {
                     TCODConsole::root, STAT_X, STAT_Y);
 }
 
-Command* MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
+std::unique_ptr<Command> MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
+  Command* pCmd;
   switch (key.vk) {
   case TCODK_UP:
-    return new MoveByCommand(0, -1);
+    pCmd =  new MoveByCommand(0, -1);
+    break;
   case TCODK_DOWN:
-    return new MoveByCommand(0, 1);
+    pCmd = new MoveByCommand(0, 1);
+    break;
   case TCODK_LEFT:
-    return new MoveByCommand(-1, 0);
+    pCmd = new MoveByCommand(-1, 0);
+    break;
   case TCODK_RIGHT:
-    return new MoveByCommand(1, 0);
+    pCmd =  new MoveByCommand(1, 0);
     break;
   default:
     std::cout << "Key " << key.text << " was pressed";
@@ -49,8 +53,9 @@ Command* MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
       std::cout << " and shift was down." << std::endl;
     else
       std::cout << "." << std::endl;
-    return new WaitCommand();
+    pCmd = new WaitCommand();
   }
+  return std::unique_ptr<Command>(pCmd);
 }
 
 bool sortByLayer(const Entity& fst, const Entity& snd) {

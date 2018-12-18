@@ -6,7 +6,7 @@ public:
   Screen(std::string name, std::shared_ptr<World> world);
   virtual ~Screen();
   virtual void render() = 0;
-  virtual Command* handleKeys(const TCOD_key_t& key, bool shift) = 0;
+  virtual std::unique_ptr<Command> handleKeys(const TCOD_key_t& key, bool shift) = 0;
   virtual void enter();
   virtual void exit();
   std::string getName() const;
@@ -21,7 +21,7 @@ class MainScreen : public Screen {
 public:
   MainScreen(std::shared_ptr<World> world);
   void render() override;
-  Command* handleKeys(const TCOD_key_t& key, bool shift) override;
+  std::unique_ptr<Command> handleKeys(const TCOD_key_t& key, bool shift) override;
 
 private:
   void drawMap();

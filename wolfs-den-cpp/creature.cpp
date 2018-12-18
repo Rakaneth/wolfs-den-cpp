@@ -16,17 +16,18 @@ Creature::Creature(const std::shared_ptr<World>& world,
   _tags = crTemp.tags;
 }
 
-Equipment* Creature::getEquipped(EquipSlot slot) {
+std::weak_ptr<Equipment> Creature::getEquipped(EquipSlot slot) {
+  std::weak_ptr<Equipment> def;
   for (auto& eID : _inventory) {
     auto pEQ = _world.lock()->getByID<Equipment>(eID);
     if (pEQ && pEQ->getSlot() == slot)
-      return pEQ.get();
+      def = pEQ;
   }
-  return nullptr;
+  return def;
 }
 
 void Creature::equip(Equipment& equip) {
-  auto curEQ = getEquipped(equip.getSlot());
+  auto curEQ = getEquipped(equip.getSlot()).lock();
   if (curEQ)
     curEQ->equipped = false;
   if (equip.getSlot() == ES_WEAPON)

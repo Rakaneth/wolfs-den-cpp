@@ -59,14 +59,13 @@ int main() {
   manager.registerScreen(std::make_shared<MainScreen>(world));
   manager.setScreen("main");
   TCOD_key_t key;
-  Command* playerCmd;
 
   // main loop
   while (!TCODConsole::isWindowClosed()) {
     manager.getCurScreen().render();
     TCODConsole::flush();
     TCODSystem::waitForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL, false);
-    playerCmd = manager.getCurScreen().handleKeys(key, key.shift);
+    auto playerCmd = manager.getCurScreen().handleKeys(key, key.shift);
     playerCmd->execute(world->getPlayer());
   }
 }

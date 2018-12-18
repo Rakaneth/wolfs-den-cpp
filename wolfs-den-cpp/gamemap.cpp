@@ -86,15 +86,59 @@ GameMap& GameMap::wallWrap() {
   return *this;
 }
 
+GameMap& GameMap::caveIterations(int times) {
+  PosList toWall, toFloor, neis;
+  for (int i = 0; i < times; i++) {
+    toWall.clear();
+    toFloor.clear();
+    for (int x = 0; x < _width; x++) {
+      for (int y = 0; y < _height; y++) {
+        neis = neighbors(x, y, false);
+        int numWalls = std::count_if(neis.begin(), neis.end(),
+                                     [&](Pos p) { return !canWalk(p); });
+        if (numWalls >= 5)
+          toWall.emplace_back(x, y);
+        else if (numWalls < 4)
+          toFloor.emplace_back(x, y);
+      }
+    }
+    for (auto& wall : toWall)
+      setTile(wall, SET_WALL);
+
+    for (auto& floor : toFloor)
+      setTile(floor, SET_FLOOR);
+  }
+
+  return *this;
+}
+
 GameMap* GameMap::makeCaves(int width, int height, std::string name,
                             std::shared_ptr<TCODRandom>& rng, bool isLight) {
   auto map = new GameMap(width, height, name, rng, TCODColor::darkestSepia,
                          TCODColor::darkerSepia, isLight);
-  map->randomTiles().wallWrap();
+  map->randomTiles().caveIterations(4).wallWrap();
   return map;
 }
 
 Pos GameMap::randomFloor() {
   auto roll = _rng.lock()->getInt(0, _floors.size());
   return _floors[roll];
+}
+
+PosList GameMap::neighbors(int x, int y, bool skipWalls) {
+  PosList results;
+  int xmin = std::max(0, x - 1);
+  int xmax = std::min(_width - 1, x + 1);
+  int ymin = std::max(0, y - 1);
+  int ymax = std::min(_height - 1, y + 1);
+  bool wall, self;
+  for (int xs = xmin; xs <= xmax; xs++) {
+    for (int ys = ymin; ys <= ymax; ys++) {
+      wall = !canWalk(xs, ys) && skipWalls;
+      self = (xs == x && ys == y);
+      if (!(wall || self))
+        results.push_back(Pos(xs, ys));
+    }
+  }
+  return results;
 }

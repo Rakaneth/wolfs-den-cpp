@@ -28,6 +28,10 @@ public:
   bool canWalk(Pos p) { return canWalk(p.x, p.y); }
   bool canSee(int x, int y) { return getTile(x, y).see; }
   bool canSee(Pos p) { return canSee(p.x, p.y); }
+  PosList neighbors(int x, int y, bool skipWalls =true);
+  PosList neighbors(Pos p, bool skipWalls = true) {
+    return neighbors(p.x, p.y, skipWalls);
+  }
   Pos randomFloor();
   TCODColor wallBG, floorBG;
 
@@ -36,6 +40,7 @@ private:
   GameMap& allFloors();
   GameMap& wallWrap();
   GameMap& randomTiles(double chance = 0.5);
+  GameMap& caveIterations(int times);
   std::vector<int> _tiles;
   std::vector<bool> _explored;
   PosList _floors;
@@ -44,5 +49,4 @@ private:
   int _height;
   std::unique_ptr<TCODMap> _fovMap;
   std::weak_ptr<TCODRandom> _rng;
-  
 };

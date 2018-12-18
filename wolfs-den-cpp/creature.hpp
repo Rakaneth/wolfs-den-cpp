@@ -22,7 +22,7 @@ public:
   void equip(int eID) { equip(*_world.lock()->getByID<Equipment>(eID)); }
   void dequip(Equipment& equip);
   void dequip(int eID) { dequip(*_world.lock()->getByID<Equipment>(eID)); }
-  Equipment* getEquipped(EquipSlot slot);
+  std::weak_ptr<Equipment> getEquipped(EquipSlot slot);
   void pickup(Item& item);
   void drop(Item& item);
   Equipment& getNaturalWeapon() {
