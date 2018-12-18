@@ -4,7 +4,8 @@ class Entity;
 class GameMap {
 public:
   GameMap(int width, int height, std::string name,
-          std::shared_ptr<TCODRandom> rng, bool isLight = true);
+          std::shared_ptr<TCODRandom> rng, TCODColor wallBG = TCODColor::grey,
+          TCODColor floorBG = TCODColor::grey, bool isLight = true);
   GameMap() = delete;
   bool isLight, dirty;
   std::string getName() const { return _name; }
@@ -28,6 +29,7 @@ public:
   bool canSee(int x, int y) { return getTile(x, y).see; }
   bool canSee(Pos p) { return canSee(p.x, p.y); }
   Pos randomFloor();
+  TCODColor wallBG, floorBG;
 
 private:
   GameMap& allWalls();
@@ -42,4 +44,5 @@ private:
   int _height;
   std::unique_ptr<TCODMap> _fovMap;
   std::weak_ptr<TCODRandom> _rng;
+  
 };

@@ -4,7 +4,7 @@ creature "wolf" {
 	desc="A large, grey wolf."
 	unarmed="fangs"
 	glyph='W'
-	col="63,50,31"
+	col="127,101,63"
 	stats {
 		spd=15
 		str=15

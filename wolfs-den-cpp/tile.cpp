@@ -1,7 +1,7 @@
-#include "main.hpp"
+﻿#include "main.hpp"
 
-extern const Tile FLOOR = Tile{ '.', true, true, nullptr};
-extern const Tile WALL = Tile{ '#', false, false, nullptr };
+extern const Tile FLOOR = Tile{ ' ', true, true, nullptr};
+extern const Tile WALL = Tile{ (char)178, false, false, nullptr };
 extern const Tile DOOR_CLOSED = Tile{ '+', false, false, new TCODColor(63,50,31) };
 extern const Tile DOOR_OPEN = Tile{ '/', true, true, new TCODColor(63, 50, 31) };
 extern const Tile STAIRS_UP = Tile{ '<', true, true, new TCODColor(255, 255, 115) };

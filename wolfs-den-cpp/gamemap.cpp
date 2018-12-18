@@ -1,7 +1,8 @@
 #include "main.hpp"
 
 GameMap::GameMap(int width, int height, std::string name,
-                 std::shared_ptr<TCODRandom> rng, bool isLight)
+                 std::shared_ptr<TCODRandom> rng, TCODColor wallBG,
+                 TCODColor floorBG, bool isLight)
   : _width(width),
     _height(height),
     isLight(isLight),
@@ -9,7 +10,9 @@ GameMap::GameMap(int width, int height, std::string name,
     _tiles(std::vector<int>(width * height, 0)),
     _explored(std::vector<bool>(width * height, false)),
     _fovMap(new TCODMap(width, height)),
-    _rng(rng) {}
+    _rng(rng),
+    wallBG(wallBG),
+    floorBG(floorBG) {}
 
 bool GameMap::inBounds(int x, int y) const {
   return between(x, 0, _width - 1) && between(y, 0, _height - 1);
@@ -34,7 +37,6 @@ void GameMap::setTile(int x, int y, int tileIdx) {
   else
     listRemove(_floors, changedTile);
   dirty = true;
-
 }
 
 bool GameMap::isExplored(int x, int y) const {
@@ -86,7 +88,8 @@ GameMap& GameMap::wallWrap() {
 
 GameMap* GameMap::makeCaves(int width, int height, std::string name,
                             std::shared_ptr<TCODRandom>& rng, bool isLight) {
-  auto map = new GameMap(width, height, name, rng, isLight);
+  auto map = new GameMap(width, height, name, rng, TCODColor::darkestSepia,
+                         TCODColor::darkerSepia, isLight);
   map->randomTiles().wallWrap();
   return map;
 }

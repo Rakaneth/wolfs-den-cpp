@@ -33,7 +33,7 @@ void MainScreen::render() {
 }
 
 Command* MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
-  switch (key.vk) { 
+  switch (key.vk) {
   case TCODK_UP:
     return new MoveByCommand(0, -1);
   case TCODK_DOWN:
@@ -59,6 +59,9 @@ bool sortByLayer(const Entity& fst, const Entity& snd) {
 
 void MainScreen::drawMap() {
   if (_world->getCurMap().dirty) {
+    TCODColor fg, bg, wallBG, floorBG;
+    wallBG = _world->getCurMap().wallBG;
+    floorBG = _world->getCurMap().floorBG;
     _map->clear();
     int w = _world->getCurMap().getWidth();
     int h = _world->getCurMap().getHeight();
@@ -66,8 +69,9 @@ void MainScreen::drawMap() {
       for (int y = 0; y < h; y++) {
         Tile t = _world->getCurMap().getTile(x, y);
         if (t.glyph != 0) {
-          TCODColor color = (t.color == nullptr) ? TCODColor::white : *t.color;
-          _map->putCharEx(x, y, t.glyph, color, TCODColor::black);
+          fg = (t.color ? *t.color : TCODColor::white);
+          bg = (t.walk ? floorBG : wallBG);
+          _map->putCharEx(x, y, t.glyph, fg, bg);
         }
       }
     }
@@ -75,7 +79,7 @@ void MainScreen::drawMap() {
     std::sort(things.begin(), things.end(), sortByLayer);
     for (auto& thing : things) {
       _map->putCharEx(thing.pos().x, thing.pos().y, thing.glyph, thing.color,
-                      TCODColor::black);
+                      floorBG);
     }
     _world->getCurMap().dirty = false;
   }
@@ -85,15 +89,17 @@ void MainScreen::drawHUD() {
   _stats->clear();
   auto c = cam(_world->getPlayer());
   Pos playerPos = _world->getPlayer().pos();
-  _stats->printf(1, 0, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at (%d, %d)", playerPos.x, playerPos.y);
-  _stats->printf(1, 1, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Cam at (%d, %d)", c.x, c.y);
+  _stats->printf(1, 0, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at (%d, %d)",
+                 playerPos.x, playerPos.y);
+  _stats->printf(1, 1, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Cam at (%d, %d)", c.x,
+                 c.y);
 }
 
 Pos MainScreen::cam(ILocatable& obj) {
   Pos pos = obj.pos();
   int mw = _world->getCurMap().getWidth();
   int mh = _world->getCurMap().getHeight();
-  int left = clamp(pos.x - MAP_W/2, 0, std::max(0, mw - MAP_W));
-  int top = clamp(pos.y - MAP_H/2, 0, std::max(0, mh - MAP_H));
+  int left = clamp(pos.x - MAP_W / 2, 0, std::max(0, mw - MAP_W));
+  int top = clamp(pos.y - MAP_H / 2, 0, std::max(0, mh - MAP_H));
   return Pos{left, top};
 }
