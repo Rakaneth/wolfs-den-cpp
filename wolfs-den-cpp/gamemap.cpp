@@ -162,6 +162,13 @@ Pos GameMap::randomFloor() {
   return _floors[roll];
 }
 
+Pos GameMap::randomFloor(Pos p, int radius) {
+  PosList cands;
+  std::copy_if(_floors.begin(), _floors.end(), std::back_inserter(cands),
+               [&](Pos pt) { return distance(pt, p) <= radius && pt != p; });
+  return listRandom(cands, getRNG());
+}
+
 PosList GameMap::neighbors(int x, int y, bool skipWalls) {
   PosList results;
   int xmin = std::max(0, x - 1);
@@ -222,6 +229,14 @@ PosList GameMap::flood(Pos p, std::map<int, int>& regionMap, int idx) {
     }
   }
   return results;
+}
+
+bool GameMap::isClosedDoor(int x, int y) {
+  return _tiles[x + y * _width] == SET_DOOR_CLOSED;
+}
+
+bool GameMap::isOpenDoor(int x, int y) {
+  return _tiles[x + y * _width] == SET_DOOR_OPEN;
 }
 
 float CaveCallback::getWalkCost(int xFrom, int yFrom, int xTo, int yTo,

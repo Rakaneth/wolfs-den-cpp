@@ -53,6 +53,7 @@ int main() {
   world->setPlayer(world->getFactory().makeCreature(world, "wolf"));
   world->getPlayer().mapID = "mine";
   world->getPlayer().move(world->getCurMap().randomFloor());
+  staff->move(world->getCurMap().randomFloor(world->getPlayer().pos(), 1));
 
   // set up screens
   ScreenManager manager;
