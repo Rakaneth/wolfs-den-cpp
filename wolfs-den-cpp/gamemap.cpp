@@ -98,7 +98,7 @@ GameMap& GameMap::caveIterations(int times) {
   PosList toWall, toFloor, neis;
   for (int i = 0; i < times; i++) {
     std::cout << "Smoothing caves in " << _name << "; iteration " << i + 1
-                                    << std::endl;
+              << std::endl;
     toWall.clear();
     toFloor.clear();
     for (int x = 0; x < _width; x++) {
@@ -124,16 +124,36 @@ GameMap& GameMap::caveIterations(int times) {
 
 GameMap* GameMap::makeCaves(int width, int height, std::string name,
                             std::shared_ptr<TCODRandom>& rng, bool isLight) {
-  const int MIN_REGION_SIZE = 20;
   auto map = new GameMap(width, height, name, rng, TCODColor::darkestSepia,
                          TCODColor::darkerSepia, isLight);
   map->randomTiles().caveIterations(4).wallWrap();
+  std::cout << "Removing small regions in " << map->getName() << std::endl;
+  static const int MIN_REGION_SIZE = 50;
   auto regions = map->findRegions();
   for (auto& region : regions)
     if (region.size() < MIN_REGION_SIZE)
       for (auto& tile : region)
         map->setTile(tile, SET_WALL);
-  
+
+  std::cout << "Connecting remaining regions in " << map->getName()
+            << std::endl;
+  regions = map->findRegions();
+  if (regions.size() > 1) {
+    Pos ptA, ptB;
+    int px, py;
+    TCODPath path(map->getWidth(), map->getHeight(), new CaveCallback(), map,
+                  0.0f);
+    for (int i = 1; i < regions.size(); i++) {
+      ptA = listRandom(regions[i - 1], map->getRNG());
+      ptB = listRandom(regions[i], map->getRNG());
+      if (path.compute(ptA.x, ptA.y, ptB.x, ptB.y)) {
+        while (!path.isEmpty()) {
+          if (path.walk(&px, &py, true))
+            map->setTile(px, py, SET_FLOOR);
+        }
+      }
+    }
+  }
   return map;
 }
 
@@ -154,7 +174,7 @@ PosList GameMap::neighbors(int x, int y, bool skipWalls) {
       wall = !canWalk(xs, ys) && skipWalls;
       self = (xs == x && ys == y);
       if (!(wall || self))
-        results.push_back(Pos(xs, ys));
+        results.emplace_back(xs, ys);
     }
   }
   return results;
@@ -163,28 +183,31 @@ PosList GameMap::neighbors(int x, int y, bool skipWalls) {
 std::vector<PosList> GameMap::findRegions() {
   std::cout << "Finding regions in " << _name << std::endl;
   std::vector<PosList> regions;
+  std::map<int, int> regionMap;
   Pos curPos{0, 0};
+  int counter = 0;
   for (int x = 0; x < _width; x++) {
     for (int y = 0; y < _height; y++) {
       if (canWalk(x, y)) {
         curPos = Pos{x, y};
-        for (auto& region : regions) {
-          if (contains(region, curPos))
-            continue;
-        }
-        regions.push_back(flood(curPos));
+        if (regionMap.count(toIndex(curPos, _width)) == 1)
+          continue;
+        else
+          regions.push_back(flood(curPos, regionMap, counter++));
       }
     }
   }
   return regions;
 }
 
-PosList GameMap::flood(Pos p) {
+PosList GameMap::flood(Pos p, std::map<int, int>& regionMap, int idx) {
   std::cout << "Flooding " << p << std::endl;
   std::queue<Pos> q;
   PosList results;
   Pos current = p;
   q.push(p);
+  if (canWalk(p))
+    results.push_back(p);
   while (!q.empty()) {
     current = q.front();
     q.pop();
@@ -193,9 +216,22 @@ PosList GameMap::flood(Pos p) {
         continue;
       else {
         q.push(nei);
+        regionMap[toIndex(nei, _width)] = idx;
         results.push_back(nei);
       }
     }
   }
   return results;
+}
+
+float CaveCallback::getWalkCost(int xFrom, int yFrom, int xTo, int yTo,
+                                void* userData) const {
+  auto pMap = (GameMap*)userData;
+  if (pMap->canWalk(xTo, yTo))
+    return 10.0f;
+  else if (xTo == 0 || yTo == 0 || xTo == pMap->getWidth() - 1 ||
+           yTo == pMap->getHeight() - 1)
+    return 0.0f;
+  else
+    return 1.0f;
 }

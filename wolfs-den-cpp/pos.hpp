@@ -1,6 +1,7 @@
 #pragma once
 
 struct Pos {
+  Pos() = default;
   Pos(int x, int y) : x(x), y(y) {}
   int x, y;
 };

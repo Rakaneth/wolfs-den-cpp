@@ -3,10 +3,11 @@ class Entity;
 
 class GameMap {
 public:
+  GameMap() = delete;
   GameMap(int width, int height, std::string name,
           std::shared_ptr<TCODRandom> rng, TCODColor wallBG = TCODColor::grey,
           TCODColor floorBG = TCODColor::grey, bool isLight = true);
-  GameMap() = delete;
+
   bool isLight, dirty;
   std::string getName() const { return _name; }
   int getWidth() const { return _width; }
@@ -34,6 +35,7 @@ public:
   }
   Pos randomFloor();
   TCODColor wallBG, floorBG;
+  TCODRandom& getRNG() { return *_rng.lock(); }
 
 private:
   GameMap& allWalls();
@@ -42,7 +44,7 @@ private:
   GameMap& randomTiles(double chance = 0.5);
   GameMap& caveIterations(int times);
   std::vector<PosList> findRegions();
-  PosList flood(Pos p);
+  PosList flood(Pos p, std::map<int, int>& regionMap, int idx);
   std::vector<int> _tiles;
   std::vector<bool> _explored;
   PosList _floors;
@@ -52,4 +54,10 @@ private:
   std::unique_ptr<TCODMap> _fovMap;
   std::weak_ptr<TCODRandom> _rng;
   PosList _allPositions;
+};
+
+class CaveCallback : public ITCODPathCallback {
+public:
+  virtual float getWalkCost(int xFrom, int yFrom, int xTo, int yTo,
+                            void* userData) const override;
 };
