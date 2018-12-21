@@ -1,14 +1,6 @@
 #pragma once
 class Command;
 
-class Message {
-public:
-  std::string text;
-  std::vector<TCODColor> colors;
-  int getHeight(TCODConsole& cons, int width) const;
-  int print(TCODConsole& cons, int width);
-};
-
 class Screen {
 public:
   Screen(std::string name, std::shared_ptr<World> world);
@@ -34,6 +26,7 @@ public:
 private:
   void drawMap();
   void drawHUD();
+  void drawMsgs();
   Pos cam(ILocatable& obj);
   std::unique_ptr<TCODConsole> _map;
   std::unique_ptr<TCODConsole> _msgs;

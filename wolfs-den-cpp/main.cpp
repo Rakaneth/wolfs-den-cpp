@@ -4,7 +4,8 @@
 int main() {
   // Init libtcod
   TCODConsole::setCustomFont("terminal16x16_gs_ro.png",
-                             TCOD_FONT_LAYOUT_ASCII_INROW | TCOD_FONT_TYPE_GREYSCALE);
+                             TCOD_FONT_LAYOUT_ASCII_INROW |
+                                 TCOD_FONT_TYPE_GREYSCALE);
   TCODConsole::initRoot(100, 40, "Wolf's Den 2");
 
   // Set up world
@@ -12,7 +13,7 @@ int main() {
   world->addMap("mine",
                 GameMap::makeCaves(85, 85, "Mines", world->getRNGPtr()));
   world->changeMap("mine");
-  
+
   /*
   //test stats
   auto dex = std::make_shared<Stat>("Dexterity", 5);
@@ -60,6 +61,14 @@ int main() {
   manager.registerScreen(std::make_shared<MainScreen>(world));
   manager.setScreen("main");
   TCOD_key_t key;
+
+  // test messages
+  world->addMessage(Message::newMessage(
+      "Hello. %cThis should be red.%c This should not.", {TCODColor::red}));
+  world->addMessage(
+      Message::newMessage("Hello. This should be %cblue%c, and this should be "
+                          "%cred.%c This should be white.",
+                          {TCODColor::blue, TCODColor::red}));
 
   // main loop
   while (!TCODConsole::isWindowClosed()) {

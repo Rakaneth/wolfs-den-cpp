@@ -1,19 +1,5 @@
 #include "main.hpp"
 
-int Message::getHeight(TCODConsole& cons, int width) const {
-  return cons.getHeightRect(1, 1, width, 0, text.c_str());
-}
-
-int Message::print(TCODConsole& cons, int width) { 
-  for (int i = 1; 1 <= 5; i++) {
-    if (colors.size() >= i)
-      TCODConsole::setColorControl((TCOD_colctrl_t)i, colors[i - 1], TCODColor::black);
-    else
-      break;
-  }
-
-}
-
 MainScreen::MainScreen(std::shared_ptr<World> world)
   : Screen("main", world),
     _map(std::unique_ptr<TCODConsole>(new TCODConsole(MAP_MAX_W, MAP_MAX_H))),
@@ -24,13 +10,13 @@ MainScreen::MainScreen(std::shared_ptr<World> world)
     _gameStarted(false) {}
 
 void MainScreen::render() {
-  border(*_msgs, "Messages");
+
   border(*_skls, "Skills");
   border(*_info, "Info");
-  border(*_stats, "Stats");
 
   drawMap();
   drawHUD();
+  drawMsgs();
 
   auto c = cam(_world->getPlayer());
 
@@ -46,12 +32,13 @@ void MainScreen::render() {
                     TCODConsole::root, STAT_X, STAT_Y);
 }
 
-std::unique_ptr<Command> MainScreen::handleKeys(const TCOD_key_t& key, bool shift) {
+std::unique_ptr<Command> MainScreen::handleKeys(const TCOD_key_t& key,
+                                                bool shift) {
   Command* pCmd;
   switch (key.vk) {
   case TCODK_KP8:
   case TCODK_UP:
-    pCmd =  new MoveByCommand(0, -1);
+    pCmd = new MoveByCommand(0, -1);
     break;
   case TCODK_KP9:
     pCmd = new MoveByCommand(1, -1);
@@ -75,7 +62,7 @@ std::unique_ptr<Command> MainScreen::handleKeys(const TCOD_key_t& key, bool shif
     break;
   case TCODK_KP6:
   case TCODK_RIGHT:
-    pCmd =  new MoveByCommand(1, 0);
+    pCmd = new MoveByCommand(1, 0);
     break;
   default:
     std::cout << "Key " << key.text << " was pressed";
@@ -121,15 +108,33 @@ void MainScreen::drawMap() {
 }
 
 void MainScreen::drawHUD() {
-  _stats->clear();
-  auto c = cam(_world->getPlayer());
-  Pos playerPos = _world->getPlayer().pos();
-  TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red,
-                               TCODColor::black);
-  _stats->printf(1, 0, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at %c(%d, %d)%c",
-                 TCOD_COLCTRL_1, playerPos.x, playerPos.y, TCOD_COLCTRL_STOP);
-  _stats->printf(1, 1, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Cam at (%d, %d)", c.x,
-                 c.y);
+  if (_world->hudDirty) {
+    _stats->clear();
+    border(*_stats, "Stats");
+    auto c = cam(_world->getPlayer());
+    Pos playerPos = _world->getPlayer().pos();
+    _stats->printf(1, 1, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at (%d, %d)",
+                   playerPos.x, playerPos.y);
+    _stats->printf(1, 2, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Cam at (%d, %d)", c.x,
+                   c.y);
+    _world->hudDirty = false;
+  }
+}
+
+void MainScreen::drawMsgs() {
+  if (_world->msgDirty) {
+    _msgs->clear();
+    border(*_msgs, "Messages");
+    int counter = 1;
+    int w = _msgs->getWidth() - 2;
+    for (int i = 0; i < _world->getMessages().size(); i++) {
+      if (counter + _world->getMessages()[i].getHeight(*_msgs, counter, w) < 8)
+        counter += _world->getMessages()[i].print(*_msgs, counter, w);
+      else
+        break;
+    }
+    _world->msgDirty = false;
+  }
 }
 
 Pos MainScreen::cam(ILocatable& obj) {

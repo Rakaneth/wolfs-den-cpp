@@ -8,6 +8,7 @@
 #include <iterator>
 #include <algorithm>
 #include <queue>
+#include <list>
 #include "include/libtcod.hpp"
 
 #include "constants.hpp"

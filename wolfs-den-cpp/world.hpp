@@ -2,6 +2,16 @@
 class Factory;
 class Creature;
 
+class Message {
+public:
+  static Message newMessage(std::string text,
+                            std::initializer_list<TCODColor> clrs);
+  std::string text;
+  std::vector<TCODColor> colors;
+  int getHeight(TCODConsole& cons, int y, int width) const;
+  int print(TCODConsole& cons, int y, int width);
+};
+
 class World {
 public:
   World(uint32_t seed);
@@ -24,6 +34,10 @@ public:
   std::shared_ptr<T> getByID(int eID) {
     return std::dynamic_pointer_cast<T>(_things[eID]);
   }
+  void addMessage(Message msg);
+  std::vector<Message>& getMessages() { return _messages; }
+  bool msgDirty = true;
+  bool hudDirty = true;
 
 private:
   std::string _curMapID;
@@ -32,5 +46,6 @@ private:
   std::unique_ptr<UpkeepManager> _upkeep;
   std::unique_ptr<Factory> _factory;
   std::map<int, std::shared_ptr<Entity>> _things;
+  std::vector<Message> _messages;
   int _turn, _playerID;
 };

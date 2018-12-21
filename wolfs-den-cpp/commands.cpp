@@ -5,6 +5,7 @@ int MoveCommand::execute(Creature& actor) {
   if (actor.getMap().canWalk(_x, _y)) {
     actor.move(_x, _y);
     actor.getMap().dirty = true;
+    actor.getWorld().hudDirty = true;
     return std::max(1, 100 - actor.getSpd().getValue());
   } else
     return 0;
