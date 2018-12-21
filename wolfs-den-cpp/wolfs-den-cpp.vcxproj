@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{3F084652-5039-4DF1-A32F-46DA29B04B85}</ProjectGuid>
     <RootNamespace>wolfsdencpp</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -89,10 +89,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Quincy\Source\Repos\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\FHPTech\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\Quincy\Documents\c++\libtcod-1.10.2-x86_64-msvc;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\FHPTech\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\lib;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libtcod.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

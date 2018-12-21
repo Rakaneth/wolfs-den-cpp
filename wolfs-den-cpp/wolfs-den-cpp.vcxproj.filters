@@ -129,5 +129,9 @@
     <None Include="data\**" />
     <None Include="data\**" />
     <None Include="data\**" />
+    <None Include="data\**" />
+    <None Include="data\**" />
+    <None Include="data\**" />
+    <None Include="data\**" />
   </ItemGroup>
 </Project>

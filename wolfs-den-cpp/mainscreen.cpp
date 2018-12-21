@@ -1,5 +1,19 @@
 #include "main.hpp"
 
+int Message::getHeight(TCODConsole& cons, int width) const {
+  return cons.getHeightRect(1, 1, width, 0, text.c_str());
+}
+
+int Message::print(TCODConsole& cons, int width) { 
+  for (int i = 1; 1 <= 5; i++) {
+    if (colors.size() >= i)
+      TCODConsole::setColorControl((TCOD_colctrl_t)i, colors[i - 1], TCODColor::black);
+    else
+      break;
+  }
+
+}
+
 MainScreen::MainScreen(std::shared_ptr<World> world)
   : Screen("main", world),
     _map(std::unique_ptr<TCODConsole>(new TCODConsole(MAP_MAX_W, MAP_MAX_H))),
@@ -110,8 +124,10 @@ void MainScreen::drawHUD() {
   _stats->clear();
   auto c = cam(_world->getPlayer());
   Pos playerPos = _world->getPlayer().pos();
-  _stats->printf(1, 0, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at (%d, %d)",
-                 playerPos.x, playerPos.y);
+  TCODConsole::setColorControl(TCOD_COLCTRL_1, TCODColor::red,
+                               TCODColor::black);
+  _stats->printf(1, 0, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Player at %c(%d, %d)%c",
+                 TCOD_COLCTRL_1, playerPos.x, playerPos.y, TCOD_COLCTRL_STOP);
   _stats->printf(1, 1, TCOD_BKGND_DEFAULT, TCOD_LEFT, "Cam at (%d, %d)", c.x,
                  c.y);
 }

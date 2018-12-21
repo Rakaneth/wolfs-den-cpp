@@ -1,6 +1,14 @@
 #pragma once
 class Command;
 
+class Message {
+public:
+  std::string text;
+  std::vector<TCODColor> colors;
+  int getHeight(TCODConsole& cons, int width) const;
+  int print(TCODConsole& cons, int width);
+};
+
 class Screen {
 public:
   Screen(std::string name, std::shared_ptr<World> world);
