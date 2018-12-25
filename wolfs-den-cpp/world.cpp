@@ -103,3 +103,14 @@ void World::addMessage(Message msg) {
   _messages.push_back(msg);
   msgDirty = true;
 }
+
+std::vector<Entity> World::thingsAt(int x, int y) {
+  auto cands = curThings();
+  Pos pt{x, y};
+  auto it = std::remove_if(cands.begin(), cands.end(), [&](Entity e) {
+    return e.pos() != pt;
+  });
+  if (it != cands.end())
+    cands.erase(it, cands.end());
+  return cands;
+}

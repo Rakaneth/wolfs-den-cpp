@@ -38,6 +38,8 @@ public:
   std::vector<Message>& getMessages() { return _messages; }
   bool msgDirty = true;
   bool hudDirty = true;
+  std::vector<Entity> thingsAt(int x, int y);
+  std::vector<Entity> thingsAt(Pos& pt) { return thingsAt(pt.x, pt.y); }
 
 private:
   std::string _curMapID;
