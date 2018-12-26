@@ -54,6 +54,8 @@ private:
   GameMap& makeRooms(int maxRooms, int minRoomDim = 5, int maxRoomDim = 20);
   GameMap& connectRegions(std::vector<PosList>& regions, bool doors = false);
   std::vector<PosList> findRegions();
+  PosList getFrontier(PosList& region);
+  bool isFrontier(Pos& p);
   bool isRoomFor(BaseRoom& rect);
   PosList flood(Pos p, std::map<int, int>& regionMap, int idx);
   std::vector<int> _tiles;

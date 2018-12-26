@@ -45,7 +45,12 @@ PosList BaseRoom::interior() {
 }
 
 bool BaseRoom::intersect(const BaseRoom& other) {
-  return !(_y2 < other._y1 || _x2 < other._x1);
+  if (_x2 < other._x1 || _x1 > other._x2)
+    return false;
+  if (_y2 < other._y1 || _y1 > other._y2)
+    return false;
+
+  return true;
 }
 
 void Room::carve(GameMap& map) {
