@@ -33,6 +33,6 @@ inline void listRemove(std::vector<T>& list, T& val) {
 
 template <typename T>
 inline T& listRandom(std::vector<T>& list, TCODRandom& rng) {
-  int roll = rng.getInt(0, list.size());
+  int roll = rng.getInt(0, list.size()-1);
   return list[roll];
 }

@@ -63,6 +63,9 @@
     <ClCompile Include="commands.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="room.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.hpp">
@@ -116,8 +119,15 @@
     <ClInclude Include="commands.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="room.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="data\**" />
+    <None Include="data\**" />
+    <None Include="data\**" />
+    <None Include="data\**" />
     <None Include="data\**" />
     <None Include="data\**" />
     <None Include="data\**" />

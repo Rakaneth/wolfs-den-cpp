@@ -25,6 +25,9 @@ public:
   static GameMap* makeCaves(int width, int height, std::string name,
                             std::shared_ptr<TCODRandom>& rng,
                             bool isLight = true);
+  static GameMap* makeUniform(int width, int hieght, std::string name,
+                              std::shared_ptr<TCODRandom>& rng,
+                              bool isLight = true);
   bool canWalk(int x, int y) { return getTile(x, y).walk; }
   bool canWalk(Pos p) { return canWalk(p.x, p.y); }
   bool canSee(int x, int y) { return getTile(x, y).see; }
@@ -48,7 +51,10 @@ private:
   GameMap& wallWrap();
   GameMap& randomTiles(double chance = 0.5);
   GameMap& caveIterations(int times);
+  GameMap& makeRooms(int maxRooms, int minRoomDim = 5, int maxRoomDim = 20);
+  GameMap& connectRegions(std::vector<PosList>& regions, bool doors = false);
   std::vector<PosList> findRegions();
+  bool isRoomFor(BaseRoom& rect);
   PosList flood(Pos p, std::map<int, int>& regionMap, int idx);
   std::vector<int> _tiles;
   std::vector<bool> _explored;

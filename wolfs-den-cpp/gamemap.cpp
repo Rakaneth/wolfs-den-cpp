@@ -122,6 +122,35 @@ GameMap& GameMap::caveIterations(int times) {
   return *this;
 }
 
+GameMap& GameMap::makeRooms(int maxRooms, int minRoomDim, int maxRoomDim) {
+  std::vector<Room> rooms;
+  auto rng = _rng.lock();
+  bool add;
+  for (int i = 0; i < maxRooms; i++) {
+    add = true;
+    int x = rng->getInt(1, _width-1);
+    int y = rng->getInt(1, _height-1);
+    int w = rng->getInt(minRoomDim, maxRoomDim);
+    int h = rng->getInt(minRoomDim, maxRoomDim);
+    Room r(x, y, w, h);
+    if (rooms.size() == 0 && !isRoomFor(r))
+      add = false;
+    else {
+      for (auto& rm : rooms) {
+        if (!isRoomFor(r) || r.intersect(rm)) {
+          add = false;
+          break;
+        }
+      }
+    }
+    if (add) {
+      rooms.push_back(r);
+      r.carve(*this);
+    }
+  }
+  return *this;
+}
+
 GameMap* GameMap::makeCaves(int width, int height, std::string name,
                             std::shared_ptr<TCODRandom>& rng, bool isLight) {
   auto map = new GameMap(width, height, name, rng, TCODColor::darkestSepia,
@@ -138,27 +167,22 @@ GameMap* GameMap::makeCaves(int width, int height, std::string name,
   std::cout << "Connecting remaining regions in " << map->getName()
             << std::endl;
   regions = map->findRegions();
-  if (regions.size() > 1) {
-    Pos ptA, ptB;
-    int px, py;
-    TCODPath path(map->getWidth(), map->getHeight(), new CaveCallback(), map,
-                  0.0f);
-    for (int i = 1; i < regions.size(); i++) {
-      ptA = listRandom(regions[i - 1], map->getRNG());
-      ptB = listRandom(regions[i], map->getRNG());
-      if (path.compute(ptA.x, ptA.y, ptB.x, ptB.y)) {
-        while (!path.isEmpty()) {
-          if (path.walk(&px, &py, true))
-            map->setTile(px, py, SET_FLOOR);
-        }
-      }
-    }
-  }
+  map->connectRegions(regions);
+  return map;
+}
+
+GameMap* GameMap::makeUniform(int width, int height, std::string name,
+                              std::shared_ptr<TCODRandom>& rng, bool isLight) {
+  auto map = new GameMap(width, height, name, rng, TCODColor::grey,
+                         TCODColor::darkGrey, isLight);
+  map->allWalls().makeRooms(20);
+  auto regions = map->findRegions();
+  map->connectRegions(regions, true).wallWrap();
   return map;
 }
 
 Pos GameMap::randomFloor() {
-  auto roll = _rng.lock()->getInt(0, _floors.size());
+  auto roll = _rng.lock()->getInt(0, _floors.size()-1);
   return _floors[roll];
 }
 
@@ -237,6 +261,33 @@ bool GameMap::isClosedDoor(int x, int y) {
 
 bool GameMap::isOpenDoor(int x, int y) {
   return _tiles[x + y * _width] == SET_DOOR_OPEN;
+}
+
+bool GameMap::isRoomFor(BaseRoom& rect) {
+  Pos rectPos = rect.pos();
+  bool inside = inBounds(rectPos);
+  bool xRoom = rect.getWidth() + rectPos.x < _width;
+  bool yRoom = rect.getHeight() + rectPos.y < _height;
+  return inside && xRoom && yRoom;
+}
+
+GameMap& GameMap::connectRegions(std::vector<PosList>& regions, bool doors) {
+  if (regions.size() > 1) {
+    Pos ptA, ptB;
+    int px, py;
+    TCODPath path(_width, _height, new CaveCallback(), this, 0.0f);
+    for (int i = 1; i < regions.size(); i++) {
+      ptA = listRandom(regions[i - 1], getRNG());
+      ptB = listRandom(regions[i], getRNG());
+      if (path.compute(ptA.x, ptA.y, ptB.x, ptB.y)) {
+        while (!path.isEmpty()) {
+          if (path.walk(&px, &py, true))
+            setTile(px, py, SET_FLOOR);
+        }
+      }
+    }
+  }
+  return *this;
 }
 
 float CaveCallback::getWalkCost(int xFrom, int yFrom, int xTo, int yTo,

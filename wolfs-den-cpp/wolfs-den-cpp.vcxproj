@@ -142,6 +142,7 @@
     <ClCompile Include="managers.cpp" />
     <ClCompile Include="parsers.cpp" />
     <ClCompile Include="pos.cpp" />
+    <ClCompile Include="room.cpp" />
     <ClCompile Include="screen.cpp" />
     <ClCompile Include="screenmanager.cpp" />
     <ClCompile Include="stats.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="main.hpp" />
     <ClInclude Include="parsers.hpp" />
     <ClInclude Include="pos.hpp" />
+    <ClInclude Include="room.hpp" />
     <ClInclude Include="screen.hpp" />
     <ClInclude Include="stats.hpp" />
     <ClInclude Include="tile.hpp" />

@@ -11,7 +11,7 @@ int main() {
   // Set up world
   auto world = std::make_shared<World>(0xDEADBEEF);
   world->addMap("mine",
-                GameMap::makeCaves(85, 85, "Mines", world->getRNGPtr()));
+                GameMap::makeUniform(85, 85, "Mines", world->getRNGPtr()));
   world->changeMap("mine");
 
   /*

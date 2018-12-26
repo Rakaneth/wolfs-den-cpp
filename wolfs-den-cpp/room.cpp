@@ -1,11 +1,11 @@
 #include "main.hpp"
 
-Room::Room(int x, int y, int w, int h)
+BaseRoom::BaseRoom(int x, int y, int w, int h)
   : _x1(x), _y1(y), _w(w), _h(h), _x2(x + w - 1), _y2(y + h - 1) {}
 
-Pos Room::center() { return Pos{(_x1 + _x2) / 2, (_y1 + _y2) / 2}; }
+Pos BaseRoom::center() { return Pos{(_x1 + _x2) / 2, (_y1 + _y2) / 2}; }
 
-RectDirection Room::getDirection(int x, int y) {
+RectDirection BaseRoom::getDirection(int x, int y) {
   if ((x == _x1 || x == _x2) && (y == _y1 || y == _y2))
     return RECT_CORNER;
   else if (x == _x1)
@@ -22,7 +22,7 @@ RectDirection Room::getDirection(int x, int y) {
     return RECT_INTERIOR;
 }
 
-PosList Room::border() {
+PosList BaseRoom::border() {
   PosList results;
   for (int x = _x1; x <= _x2; x++) {
     results.emplace_back(x, _y1);
@@ -36,14 +36,19 @@ PosList Room::border() {
   return results;
 }
 
-PosList Room::interior() {
+PosList BaseRoom::interior() {
   PosList results;
   for (int x = _x1 + 1; x < _x2; x++)
-    for (int y = _y2 + 1; y < _y2; y++)
-      results.emplace_back(x, y);
+    for (int y = _y1 + 1; y < _y2; y++) 
+      results.push_back(Pos{x, y});
   return results;
 }
 
-bool Room::intersect(const Room& other) {
+bool BaseRoom::intersect(const BaseRoom& other) {
   return !(_y2 < other._y1 || _x2 < other._x1);
+}
+
+void Room::carve(GameMap& map) {
+  for (auto& p : interior())
+    map.setTile(p, SET_FLOOR);
 }

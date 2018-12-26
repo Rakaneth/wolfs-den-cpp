@@ -1,4 +1,5 @@
 #pragma once
+class GameMap;
 
 enum RectDirection {
   RECT_NORTH,
@@ -10,23 +11,28 @@ enum RectDirection {
   RECT_CORNER
 };
 
-class Room {
+class BaseRoom {
 public:
-  Room() = default;
-  Room(int x, int y, int w, int h);
+  BaseRoom() = default;
+  BaseRoom(int x, int y, int w, int h);
   Pos center();
   Pos pos() { return Pos(_x1, _y1); }
   int getWidth() const { return _w; }
   int getHeight() const { return _h; }
   RectDirection getDirection(int x, int y);
   RectDirection getDirection(Pos& p) { return getDirection(p.x, p.y); }
+  virtual void carve(GameMap& map) = 0;
 
   PosList border();
   PosList interior();
-  bool intersect(const Room& other);
+  bool intersect(const BaseRoom& other);
 
 private:
   int _x1, _y1, _x2, _y2, _w, _h;
 };
 
-
+class Room : public BaseRoom {
+public:
+  Room(int x, int y, int w, int h) : BaseRoom(x, y, w, h) {}
+  void carve(GameMap& map) override;
+};
