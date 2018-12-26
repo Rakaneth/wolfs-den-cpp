@@ -15,6 +15,7 @@
 #include "utils.hpp"
 #include "pos.hpp"
 #include "tile.hpp"
+#include "rect.hpp"
 #include "gamemap.hpp"
 #include "interfaces.hpp"
 #include "managers.hpp"
