@@ -89,10 +89,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\FHPTech\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\include;C:\Users\FHPTech\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\include;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>C:\Users\FHPTech\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\lib;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\lib;C:\Users\FHPTech\Documents\c++\wolfs-den-cpp\wolfs-den-cpp\lib;D:\Documents\Visual Studio 2017\Projects\wolfs-den-cpp\wolfs-den-cpp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libtcod.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
